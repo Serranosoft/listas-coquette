@@ -1,22 +1,41 @@
-import { StyleSheet, TextInput, View } from "react-native"
+import { ScrollView, StyleSheet, TextInput, View } from "react-native"
 import { Text } from "react-native"
 import { TouchableOpacity } from "react-native"
 import { Modal } from "react-native"
 import { colors, components, gap, layout, ui } from "../utils/styles"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ColorPicker, { HueSlider, Panel1 } from 'reanimated-color-picker';
 import SvgItem from "../utils/svg-item"
 import { ColorsHandler } from "../utils/colors-handler"
+import Animated, { useSharedValue, withSpring, useAnimatedStyle, ZoomIn } from 'react-native-reanimated';
 
 export default function AddListModal({ setOpenAddModal, openAddModal }) {
-    
+
     const [color, setColor] = useState("rgb(85, 172, 238)")
     const [title, setTitle] = useState("");
-    
+
+    // Encargado de cerrar el modal
     function close() {
         setOpenAddModal(false)
     }
+
+    // Boolean que me devuelve true/false cuando el background es muy oscuro para pintar el texto de blanco o negro
     const isReadable = ColorsHandler.isReadableForBlackBackground(color);
+
+    // Animación "salto" para el botón «Crear lista» cuando cambia de color
+    const translateY = useSharedValue(1);
+    const animatedStyle = useAnimatedStyle(() => {
+        return {
+            transform: [{ translateY: translateY.value }],
+        };
+    });
+    const onBounce = () => translateY.value = withSpring(-5, { stiffness: 100, duration: 100 }, () => translateY.value = withSpring(0, { stiffness: 500 }));
+
+    useEffect(() => {
+        if (color) {
+            onBounce();
+        }
+    }, [color]);
 
     return (
         <Modal
@@ -31,34 +50,54 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
                             <Text style={[ui.h4, ui.black]}>&#10006;</Text>
                         </TouchableOpacity>
                         <View style={styles.content}>
+                            <ScrollView style={{ gap: 16, width: "100%" }} contentContainerStyle={{ alignItems: "center", gap: 16 }}>
 
-                            <SvgItem {...{ width: 125, height: 125, color }} />
+                                <Animated.View entering={ZoomIn}>
+                                    <SvgItem {...{ width: 110, height: 110, color }} />
+                                </Animated.View>
 
-                            <Text style={[ui.h3, ui.black]}>Personaliza tu lista</Text>
-                            <TextInput
-                                style={styles.input}
-                                onChangeText={setTitle}
-                                value={title}
-                                placeholder="Nombre de tu lista"
-                            />
+                                <Animated.View entering={ZoomIn.delay(125)}>
+                                    <Text style={[ui.h3, ui.black]}>Personaliza tu lista</Text>
 
-                            <ColorPicker
-                                style={[layout.w100, gap.big]}
-                                value={color}
-                                onComplete={({ rgb }) => setColor(rgb)}
-                                sliderThickness={25}
-                                thumbSize={24}
-                                thumbShape='circle'
-                            >
-                                <View style={[layout.row, gap.big]}>
-                                    <HueSlider vertical={true} style={styles.sliderStyle} />
-                                    <Panel1 style={styles.panelStyle} />
-                                </View>
-                            </ColorPicker>
+                                </Animated.View>
 
-                            <TouchableOpacity style={[components.button, { backgroundColor: color }]}>
-                                <Text style={[ui.h4, { color: isReadable ? "black" : "white" }]}>Crear lista</Text>
-                            </TouchableOpacity>
+
+                                <Animated.View entering={ZoomIn.delay(225)} style={[layout.w100]}>
+                                    <TextInput
+                                        style={styles.input}
+                                        onChangeText={setTitle}
+                                        value={title}
+                                        placeholder="Nombre de tu lista"
+                                    />
+
+                                </Animated.View>
+
+
+                                <Animated.View entering={ZoomIn.delay(325)} style={[layout.w100]}>
+                                    <ColorPicker
+                                        style={[layout.w100, gap.big]}
+                                        value={color}
+                                        onComplete={({ rgb }) => setColor(rgb)}
+                                        sliderThickness={25}
+                                        thumbSize={24}
+                                        thumbShape='circle'
+                                    >
+                                        <View style={[layout.row, gap.big]}>
+                                            <HueSlider vertical={true} style={styles.sliderStyle} />
+                                            <Panel1 style={styles.panelStyle} />
+                                        </View>
+                                    </ColorPicker>
+
+                                </Animated.View>
+
+
+                                <Animated.View style={[components.button, layout.w100, animatedStyle, { backgroundColor: color }]} entering={ZoomIn.delay(425)}>
+                                    <TouchableOpacity>
+                                        <Text style={[ui.h4, ui.center, { color: isReadable ? "black" : "white" }]}>Crear lista</Text>
+                                    </TouchableOpacity>
+                                </Animated.View>
+                            </ScrollView>
+
 
                         </View>
                     </View>
@@ -104,41 +143,38 @@ const styles = StyleSheet.create({
         borderWidth: 6,
         borderRadius: 20,
         borderColor: "#FACCD6",
-        paddingHorizontal: 24,
-        paddingVertical: 32,
+        paddingHorizontal: 16,
+        paddingVertical: 24,
     },
 
     content: {
-        marginTop: 16,
-        gap: 16,
-        alignItems: "center",
+        marginTop: 8,
     },
 
     input: {
-        width: "100%",
-        height: 40,
-        margin: 12,
-        borderWidth: 4,
+        height: 50,
+        borderWidth: 3,
         borderColor: colors.light,
         borderRadius: 8,
-        padding: 10,
+        paddingHorizontal: 12,
+        fontSize: 17
     },
     panelStyle: {
         width: "100%",
         flex: 1,
         height: 200,
         borderRadius: 16,
-    
+
         shadowColor: '#000',
         shadowOffset: {
-          width: 0,
-          height: 2,
+            width: 0,
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-    
+
         elevation: 5,
-      },
+    },
     sliderStyle: {
         borderRadius: 20,
         shadowColor: '#000',

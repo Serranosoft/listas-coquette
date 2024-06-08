@@ -270,10 +270,8 @@ export const components = {
     ],
 
     button: [
-        layout.alignCenter,
         layout.backgroundLight,
         layout.w100,
-        layout.shadow,
         padding.smallVertical,
         borderRadius.small,
     ]
