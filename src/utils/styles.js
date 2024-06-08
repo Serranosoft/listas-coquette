@@ -49,6 +49,10 @@ export const layout = {
     flex: {
         flex: 1,
     },
+    
+    w100: {
+        width: "100%"
+    },
 
     title: {
         flexDirection: "row",
@@ -182,6 +186,40 @@ export const padding = {
     },
     bigTop: {
         paddingTop: 16,
+    },
+}
+
+export const margin = {
+    smallHorizontal: {
+        marginHorizontal: 8
+    },
+
+    mediumHorizontal: {
+        marginHorizontal: 12
+    },
+
+    bigHorizontal: {
+        marginHorizontal: 16
+    },
+
+    smallVertical: {
+        marginVertical: 8,
+    },
+    mediumVertical: {
+        marginVertical: 12,
+    },
+    bigVertical: {
+        marginVertical: 16,
+    },
+    
+    smallTop: {
+        marginTop: 8,
+    },
+    mediumTop: {
+        marginTop: 12,
+    },
+    bigTop: {
+        marginTop: 16,
     },
 }
 

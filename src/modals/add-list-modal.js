@@ -2,8 +2,10 @@ import { StyleSheet, TextInput, View } from "react-native"
 import { Text } from "react-native"
 import { TouchableOpacity } from "react-native"
 import { Modal } from "react-native"
-import { colors, ui } from "../utils/styles"
+import { colors, gap, layout, ui } from "../utils/styles"
 import { useState } from "react"
+import ColorPicker, { HueSlider, Panel1 } from 'reanimated-color-picker';
+import SvgItem from "../utils/svg-item"
 
 export default function AddListModal({ setOpenAddModal, openAddModal }) {
 
@@ -11,12 +13,9 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
         setOpenAddModal(false)
     }
 
-    function save() {
-
-    }
-
+    const [color, setColor] = useState("rgb(85, 172, 238)")
     const [title, setTitle] = useState("");
- 
+
     return (
         <Modal
             animationType="fade"
@@ -31,6 +30,8 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
                         </TouchableOpacity>
                         <View style={styles.content}>
 
+                            <SvgItem {...{ width: 125, height: 125, color }} />
+
                             <Text style={[ui.h3, ui.black]}>Personaliza tu lista</Text>
                             <TextInput
                                 style={styles.input}
@@ -38,6 +39,20 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
                                 value={title}
                                 placeholder="Nombre de tu lista"
                             />
+
+                            <ColorPicker
+                                style={[layout.w100, gap.big]}
+                                value={color}
+                                onComplete={({ rgb }) => setColor(rgb)}
+                                sliderThickness={25}
+                                thumbSize={24}
+                                thumbShape='circle'
+                            >
+                                <View style={[layout.row, gap.big]}>
+                                    <HueSlider vertical={true} style={styles.sliderStyle} />
+                                    <Panel1 style={styles.panelStyle} />
+                                </View>
+                            </ColorPicker>
 
                         </View>
                     </View>
@@ -89,17 +104,46 @@ const styles = StyleSheet.create({
     },
 
     content: {
-        marginTop: 32,
-        gap: 8,
+        marginTop: 16,
+        gap: 24,
         alignItems: "center",
     },
 
     input: {
+        width: "100%",
         height: 40,
         margin: 12,
-        borderWidth: 2,
-        borderColor: colors.dark,
+        borderWidth: 4,
+        borderColor: colors.light,
         borderRadius: 8,
         padding: 10,
+    },
+    panelStyle: {
+        width: "100%",
+        flex: 1,
+        height: 200,
+        borderRadius: 16,
+    
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    
+        elevation: 5,
       },
+    sliderStyle: {
+        borderRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
+    },
 })

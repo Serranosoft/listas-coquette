@@ -11,7 +11,7 @@ export default function HeaderHomeContainer() {
     return (
         <>
             <HeaderHome {...{ setOpenAddModal }} />
-            <AddListModal {...{ openAddModal }} />
+            <AddListModal {...{ setOpenAddModal, openAddModal }} />
         </>
 
     )
