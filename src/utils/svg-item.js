@@ -36,10 +36,6 @@ export default function SvgItem({ width = 100, height = 100, color }) {
         r = Math.max(0, Math.floor(r * (1 - percentage)));
         g = Math.max(0, Math.floor(g * (1 - percentage)));
         b = Math.max(0, Math.floor(b * (1 - percentage)));
-
-        console.log(r);
-        console.log(g);
-        console.log(b);
         return `rgb(${r},${g},${b})`;
     }
 

@@ -2,19 +2,21 @@ import { StyleSheet, TextInput, View } from "react-native"
 import { Text } from "react-native"
 import { TouchableOpacity } from "react-native"
 import { Modal } from "react-native"
-import { colors, gap, layout, ui } from "../utils/styles"
+import { colors, components, gap, layout, ui } from "../utils/styles"
 import { useState } from "react"
 import ColorPicker, { HueSlider, Panel1 } from 'reanimated-color-picker';
 import SvgItem from "../utils/svg-item"
+import { ColorsHandler } from "../utils/colors-handler"
 
 export default function AddListModal({ setOpenAddModal, openAddModal }) {
-
+    
+    const [color, setColor] = useState("rgb(85, 172, 238)")
+    const [title, setTitle] = useState("");
+    
     function close() {
         setOpenAddModal(false)
     }
-
-    const [color, setColor] = useState("rgb(85, 172, 238)")
-    const [title, setTitle] = useState("");
+    const isReadable = ColorsHandler.isReadableForBlackBackground(color);
 
     return (
         <Modal
@@ -53,6 +55,10 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
                                     <Panel1 style={styles.panelStyle} />
                                 </View>
                             </ColorPicker>
+
+                            <TouchableOpacity style={[components.button, { backgroundColor: color }]}>
+                                <Text style={[ui.h4, { color: isReadable ? "black" : "white" }]}>Crear lista</Text>
+                            </TouchableOpacity>
 
                         </View>
                     </View>
@@ -100,12 +106,11 @@ const styles = StyleSheet.create({
         borderColor: "#FACCD6",
         paddingHorizontal: 24,
         paddingVertical: 32,
-
     },
 
     content: {
         marginTop: 16,
-        gap: 24,
+        gap: 16,
         alignItems: "center",
     },
 

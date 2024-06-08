@@ -49,7 +49,7 @@ export const layout = {
     flex: {
         flex: 1,
     },
-    
+
     w100: {
         width: "100%"
     },
@@ -73,8 +73,8 @@ export const layout = {
     },
 
     contentList: {
-        gap: 32, 
-        paddingTop: 16, 
+        gap: 32,
+        paddingTop: 16,
         paddingBottom: 100
     },
 
@@ -92,7 +92,19 @@ export const layout = {
 
     alignCenter: {
         alignItems: "center",
-    }    
+    },
+
+    shadow: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
+    }
 }
 
 export const editor = {
@@ -177,7 +189,7 @@ export const padding = {
     bigVertical: {
         paddingVertical: 16,
     },
-    
+
     smallTop: {
         paddingTop: 8,
     },
@@ -211,7 +223,7 @@ export const margin = {
     bigVertical: {
         marginVertical: 16,
     },
-    
+
     smallTop: {
         marginTop: 8,
     },
@@ -223,14 +235,26 @@ export const margin = {
     },
 }
 
+export const borderRadius = {
+    small: {
+        borderRadius: 8
+    },
+    medium: {
+        borderRadius: 12
+    },
+    big: {
+        borderRadius: 16
+    }
+}
+
 export const components = {
     header: [
-        layout.row, 
-        layout.justifyBetween, 
-        layout.alignCenter, 
-        layout.backgroundLight, 
+        layout.row,
+        layout.justifyBetween,
+        layout.alignCenter,
+        layout.backgroundLight,
         padding.mediumHorizontal,
-        padding.mediumVertical, 
+        padding.mediumVertical,
         gap.small
     ],
 
@@ -243,5 +267,14 @@ export const components = {
     error: [
         ui.text,
         { color: "red" }
+    ],
+
+    button: [
+        layout.alignCenter,
+        layout.backgroundLight,
+        layout.w100,
+        layout.shadow,
+        padding.smallVertical,
+        borderRadius.small,
     ]
 }
