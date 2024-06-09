@@ -23,7 +23,6 @@ export default function HomeContainer() {
 
     async function fetchDb() {
         const result = await getAllList();
-        console.log(result);
         setLists(result);
     }
 

@@ -16,6 +16,16 @@ export async function insertList(color, title) {
     db.runAsync("INSERT INTO list (id, color, title) VALUES (?, ?, ?)", id, color, title);
 }
 
+export async function getItemsFromListId(id) {
+    const x = await db.getAllAsync('SELECT * FROM listItem WHERE listId = ?', id)
+    return x;
+}
+
+export async function getListFromId(id) {
+    const x = await db.getFirstAsync('SELECT * FROM list WHERE id = ?', id)
+    return x;
+}
+
 export async function dropAll() {
     db.execAsync(`
         DROP TABLE IF EXISTS listItem;
@@ -26,7 +36,6 @@ export async function dropAll() {
 
 export async function getAllList() {
     const allRows = await db.getAllAsync('SELECT * FROM list');
-    console.log(allRows);
     return allRows;
 }
 export async function getAllListItem() {
