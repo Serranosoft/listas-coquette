@@ -1,29 +1,35 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Home from "./home";
 import HeaderHomeContainer from "../headers/header-home-container";
-import { Stack } from "expo-router";
+import { Stack, useFocusEffect } from "expo-router";
+import { getAllList, getAllListItem } from "../utils/storage";
 
 export default function HomeContainer() {
 
-    const [lists, setLists] = useState([]);
+    const [lists, setLists] = useState([])
+    const [openAddModal, setOpenAddModal] = useState(false);
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchDb();
+        }, [])
+    );
 
     useEffect(() => {
-        const tmp = [
-            {
-                bookColor: "red",
-                title: "El primer listado",
-                content: [
-                    true, false, true, true
-                ]
-            }
-        ]
+        if (!openAddModal) {
+            fetchDb();
+        }
+    }, [openAddModal])
 
-        setLists(tmp);
-    }, [])
+    async function fetchDb() {
+        const result = await getAllList();
+        console.log(result);
+        setLists(result);
+    }
 
     return (
         <>
-            <Stack.Screen options={{ header: () => <HeaderHomeContainer {...{ setLists }} /> }} />
+            <Stack.Screen options={{ header: () => <HeaderHomeContainer {...{ openAddModal, setOpenAddModal }} /> }} />
             <Home {...{ lists }} />
         </>
     )

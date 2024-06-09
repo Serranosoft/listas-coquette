@@ -3,6 +3,8 @@ import { View, StatusBar, StyleSheet } from "react-native";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import { colors } from "../src/utils/styles";
+import { createTableSQL, dropAll, getAll, getAllList, getAllListItem, init, initDb, testInsertDb } from "../src/utils/storage";
+import * as SQLite from 'expo-sqlite';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -17,9 +19,9 @@ export default function Layout() {
         }
     }, [fontsLoaded])
 
-/*     useEffect(() => {
-        setInitialNote();
-    }, []) */
+    useEffect(() => {
+        initDb()
+    }, [])
 
     // Esperar hasta que las fuentes se carguen
     if (!fontsLoaded) {

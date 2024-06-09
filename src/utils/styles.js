@@ -14,7 +14,7 @@ export const ui = {
     text: {
         fontFamily: "madimi",
         color: "#fff",
-        fontSize: 16.5,
+        fontSize: 18.5,
     },
     h1: {
         fontSize: 60,
@@ -48,6 +48,10 @@ export const ui = {
 export const layout = {
     flex: {
         flex: 1,
+    },
+
+    flexHalf: {
+        flex: 1 / 2
     },
 
     w100: {
@@ -244,6 +248,28 @@ export const borderRadius = {
     },
     big: {
         borderRadius: 16
+    }
+}
+
+export const borderWidth = {
+    small: {
+        borderWidth: 1
+    },
+    medium: {
+        borderWidth: 2
+    },
+    big: {
+        borderWidth: 3
+    },
+}
+
+export const borderColor = {
+    light: {
+        borderColor: colors.light
+    },
+
+    dark: {
+        borderColor: colors.dark
     }
 }
 

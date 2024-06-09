@@ -26,7 +26,6 @@ export class ColorsHandler {
         const contrastRatio = (L + 0.05) / (blackLuminance + 0.05);
     
         // Un contraste de 4.5:1 es generalmente considerado adecuado para texto normal
-        console.log(contrastRatio > 4.5);
         return contrastRatio > 4.5;
     }    
 }

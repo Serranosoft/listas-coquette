@@ -8,11 +8,17 @@ import ColorPicker, { HueSlider, Panel1 } from 'reanimated-color-picker';
 import SvgItem from "../utils/svg-item"
 import { ColorsHandler } from "../utils/colors-handler"
 import Animated, { useSharedValue, withSpring, useAnimatedStyle, ZoomIn } from 'react-native-reanimated';
+import { insertList } from "../utils/storage"
 
 export default function AddListModal({ setOpenAddModal, openAddModal }) {
 
     const [color, setColor] = useState("rgb(85, 172, 238)")
     const [title, setTitle] = useState("");
+
+    async function save() {
+        await insertList(color, title);
+        setOpenAddModal(false);
+    }
 
     // Encargado de cerrar el modal
     function close() {
@@ -58,7 +64,6 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
 
                                 <Animated.View entering={ZoomIn.delay(125)}>
                                     <Text style={[ui.h3, ui.black]}>Personaliza tu lista</Text>
-
                                 </Animated.View>
 
 
@@ -69,7 +74,6 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
                                         value={title}
                                         placeholder="Nombre de tu lista"
                                     />
-
                                 </Animated.View>
 
 
@@ -87,12 +91,11 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
                                             <Panel1 style={styles.panelStyle} />
                                         </View>
                                     </ColorPicker>
-
                                 </Animated.View>
 
 
                                 <Animated.View style={[components.button, layout.w100, animatedStyle, { backgroundColor: color }]} entering={ZoomIn.delay(425)}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={save}>
                                         <Text style={[ui.h4, ui.center, { color: isReadable ? "black" : "white" }]}>Crear lista</Text>
                                     </TouchableOpacity>
                                 </Animated.View>
