@@ -34,7 +34,7 @@ export default function ListContainer() {
     return (
         <>
             <Stack.Screen options={{ header: () => <HeaderListContainer /> }} />
-            <ListPresentation {...{ list, items }}/>
+            <ListPresentation {...{ getChecklist, setItems, items, list }}/>
         </>
     )
 }
