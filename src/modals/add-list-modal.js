@@ -95,11 +95,12 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
                                     </ColorPicker>
                                 </Animated.View>
 
-
-                                <Animated.View style={[components.button, layout.w100, animatedStyle, { backgroundColor: color }]} entering={ZoomIn.delay(425)}>
-                                    <TouchableOpacity onPress={save}>
-                                        <Text style={[ui.h4, ui.center, { color: isReadable ? "black" : "white" }]}>Crear lista</Text>
-                                    </TouchableOpacity>
+                                <Animated.View style={[components.button, layout.w100, { backgroundColor: color }]} entering={ZoomIn.delay(425)}>
+                                    <Animated.View style={animatedStyle}>
+                                        <TouchableOpacity onPress={save}>
+                                            <Text style={[ui.h4, ui.center, { color: isReadable ? "black" : "white" }]}>Crear lista</Text>
+                                        </TouchableOpacity>
+                                    </Animated.View>
                                 </Animated.View>
                             </ScrollView>
 
