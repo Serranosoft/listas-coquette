@@ -1,7 +1,7 @@
 import Checkbox from "expo-checkbox"
 import { useEffect, useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { ui } from "../utils/styles";
+import { colors, ui } from "../utils/styles";
 import { updateItemStatus } from "../utils/storage";
 
 export default function ListItem({ item }) {
@@ -30,7 +30,7 @@ export default function ListItem({ item }) {
                 style={styles.checkbox}
                 value={checked}
                 onValueChange={handleChange}
-                color={checked ? '#4630EB' : undefined}
+                color={checked ? colors.dark : undefined}
             />
         </View>
     )
@@ -43,10 +43,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 8,
         borderRadius: 12,
+        borderBottomWidth: 1,
+        paddingBottom: 12,
+        borderBottomColor: "#c4c4c4",
     },
 
     checkbox: {
-        margin: 8
+        borderRadius: 100,
+        height: 32,
+        width: 32,
     }
 
 })

@@ -21,7 +21,7 @@ export default function ListPresentation({ getChecklist, setItems, items, list }
                     <ListAddItem {...{ getChecklist, list, setItems }} />
 
                     <View style={styles.checkboxList}>
-                        <ScrollView style={{ gap: 16, width: "100%", marginVertical: 8 }} contentContainerStyle={{flex: 1, gap: 8}}>
+                        <ScrollView style={{ gap: 16, width: "100%", marginVertical: 8 }} contentContainerStyle={{ gap: 8}}>
                             {
                                 items.length > 0 ?
                                     items.map((item) => {

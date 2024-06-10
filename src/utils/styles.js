@@ -2,7 +2,8 @@ export const colors = {
     button: "#cc527a",
     selected: "rgba(230, 34, 114, 0.25)",
     light: "#FACCD6",
-    dark: "#cc527a"
+    dark: "#cc527a",
+    muted: "#858585"
 }
 
 export const ui = {
