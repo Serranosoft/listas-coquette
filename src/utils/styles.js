@@ -3,7 +3,8 @@ export const colors = {
     selected: "rgba(230, 34, 114, 0.25)",
     light: "#FACCD6",
     dark: "#cc527a",
-    muted: "#858585"
+    muted: "#858585",
+    gray: "#ededed",
 }
 
 export const ui = {
@@ -53,6 +54,10 @@ export const layout = {
 
     flexHalf: {
         flex: 1 / 2
+    },
+
+    white: {
+        backgroundColor: "#fff"
     },
 
     w100: {

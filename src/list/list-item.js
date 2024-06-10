@@ -33,7 +33,7 @@ export default function ListItem({ item, selectedItems, setSelectedItems }) {
     }
 
     function onPress() {
-        if (selectedItems) {
+        if (selectedItems.length > 0) {
             if (!selected) {
                 setSelected(true);
             } else {
@@ -55,7 +55,7 @@ export default function ListItem({ item, selectedItems, setSelectedItems }) {
     }, [selected])
 
     return (
-        <Pressable style={[styles.wrapper, selected && { backgroundColor: "#F7B4B4"}]} onPress={onPress} onLongPress={onLongPress}>
+        <Pressable style={[styles.wrapper, selected && { backgroundColor: "#F7B4B4", borderBottomColor: colors.gray}]} onPress={onPress} onLongPress={onLongPress}>
             <Text style={[ui.h4, ui.black]}>{item.value}</Text>
             <Checkbox
                 style={styles.checkbox}
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: 12,
         borderBottomWidth: 1,
-        paddingBottom: 12,
         borderBottomColor: "#c4c4c4",
     },
 

@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     addWrapper: {
         flexDirection: "row",
         justifyContent: "space-between",
-        backgroundColor: "#e3e3e3",
+        backgroundColor: colors.gray,
         width: "85%",
         padding: 8,
         borderRadius: 12,
