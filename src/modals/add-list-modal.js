@@ -16,8 +16,10 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
     const [title, setTitle] = useState("");
 
     async function save() {
-        await insertList(color, title);
-        setOpenAddModal(false);
+        if (title.length > 0) {
+            await insertList(color, title);
+            setOpenAddModal(false);
+        }
     }
 
     // Encargado de cerrar el modal
