@@ -25,6 +25,10 @@ export async function updateItemStatus(id, checked) {
     db.runAsync("UPDATE listItem SET checked = ? WHERE id = ?", checked, id);
 }
 
+export async function deleteItemFromId(id) {
+    db.runAsync("DELETE FROM listItem WHERE id = ?", id);
+}
+
 export async function getItemsFromListId(id) {
     const x = await db.getAllAsync('SELECT * FROM listItem WHERE listId = ?', id)
     return x;

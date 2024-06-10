@@ -1,12 +1,19 @@
-import { useState } from "react";
-import HeaderHome from "./header-home";
-import AddListModal from "../modals/add-list-modal";
-import { init, insertTest } from "../utils/storage";
+import { deleteItemFromId } from "../utils/storage";
 import HeaderList from "./header-list";
+import { router } from "expo-router";
 
-export default function HeaderListContainer({ selectedItems }) {
+export default function HeaderListContainer({ setSelectedItems, selectedItems, getChecklist }) {
 
+    function removeItems() {
+        selectedItems.map(async (item) => await deleteItemFromId(item));
+        setSelectedItems([]);
+        getChecklist();
+    }
 
-    return <HeaderList {...{ selectedItems }} />
+    function back() {
+        router.back();
+    }
+
+    return <HeaderList {...{ selectedItems, back, removeItems }} />
     
 }

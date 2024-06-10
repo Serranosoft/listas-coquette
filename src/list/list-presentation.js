@@ -21,7 +21,7 @@ export default function ListPresentation({ getChecklist, setItems, items, list, 
                             {
                                 items.length > 0 ?
                                     items.map((item) => {
-                                        return <ListItem {...{ item, selectedItems, setSelectedItems }} />
+                                        return <ListItem key={item.id} {...{ item, selectedItems, setSelectedItems }} />
                                     })
                                     :
                                     <Text style={[ui.muted, ui.center, { marginVertical: "auto" }]}>No hay registros añadidos</Text>
