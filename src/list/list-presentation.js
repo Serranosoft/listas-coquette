@@ -20,16 +20,18 @@ export default function ListPresentation({ getChecklist, setItems, items, list }
 
                     <ListAddItem {...{ getChecklist, list, setItems }} />
 
-                    <ScrollView style={{ gap: 16, width: "100%" }} contentContainerStyle={{ alignItems: "center", gap: 16 }}>
-                        <View style={styles.checkboxList}>
-
+                    <View style={styles.checkboxList}>
+                        <ScrollView style={{ gap: 16, width: "100%", marginVertical: 8 }} contentContainerStyle={{flex: 1, gap: 8}}>
                             {
-                                items.map((item, index) => {
-                                    return <ListItem {...{ item }}/>
-                                })
+                                items.length > 0 ?
+                                    items.map((item) => {
+                                        return <ListItem {...{ item }} />
+                                    })
+                                    :
+                                    <Text style={[ui.muted, ui.center, { marginVertical: "auto" }]}>No hay registros añadidos</Text>
                             }
-                        </View>
-                    </ScrollView>
+                        </ScrollView>
+                    </View>
                 </View>
             }
         </View>
@@ -41,18 +43,8 @@ const styles = StyleSheet.create({
         width: "85%",
         height: "100%",
         flex: 1,
-        borderWidth: 2,
-        borderColor: colors.dark,
         borderRadius: 12,
-        marginTop: 8
+        marginVertical: 16,
+        backgroundColor: "#e3e3e3"
     },
-
-    addWrapper: {
-        backgroundColor: "lightgray",
-        width: "85%",
-        padding: 8,
-        borderRadius: 12,
-        marginTop: 24,
-    }
-
 })
