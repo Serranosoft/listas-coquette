@@ -8,8 +8,8 @@ export const colors = {
 export const ui = {
     muted: {
         fontFamily: "madimi",
-        color: "#9c9c9c",
-        fontSize: 14
+        color: "#858585",
+        fontSize: 16
     },
     text: {
         fontFamily: "madimi",
