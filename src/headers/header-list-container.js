@@ -4,9 +4,9 @@ import AddListModal from "../modals/add-list-modal";
 import { init, insertTest } from "../utils/storage";
 import HeaderList from "./header-list";
 
-export default function HeaderListContainer() {
+export default function HeaderListContainer({ selectedItems }) {
 
 
-    return <HeaderList />
+    return <HeaderList {...{ selectedItems }} />
     
 }

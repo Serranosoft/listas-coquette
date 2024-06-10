@@ -1,12 +1,13 @@
 import Checkbox from "expo-checkbox"
 import { useEffect, useState } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 import { colors, ui } from "../utils/styles";
 import { updateItemStatus } from "../utils/storage";
 
-export default function ListItem({ item }) {
+export default function ListItem({ item, selectedItems, setSelectedItems }) {
 
     const [checked, setChecked] = useState(false);
+    const [selected, setSelected] = useState(false);
 
     useEffect(() => {
         if (item && item.hasOwnProperty("checked")) {
@@ -23,8 +24,38 @@ export default function ListItem({ item }) {
         setChecked(!checked);
     }
 
+    function onLongPress() {
+        if (selected) {
+            setSelected(false);
+        } else {
+            setSelected(true);
+        }
+    }
+
+    function onPress() {
+        if (selectedItems) {
+            if (!selected) {
+                setSelected(true);
+            } else {
+                setSelected(false);
+            }
+        } else {
+            setSelected(false);
+        }
+    }
+
+    useEffect(() => {
+        if (selected) {
+            setSelectedItems(prevState => [...prevState, item.id]);
+        } else {
+            if (selectedItems.includes(item.id)) {
+                setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item.id));
+            }
+        }
+    }, [selected])
+
     return (
-        <View style={styles.wrapper}>
+        <Pressable style={[styles.wrapper, selected && { backgroundColor: "#F7B4B4"}]} onPress={onPress} onLongPress={onLongPress}>
             <Text style={[ui.h4, ui.black]}>{item.value}</Text>
             <Checkbox
                 style={styles.checkbox}
@@ -32,7 +63,7 @@ export default function ListItem({ item }) {
                 onValueChange={handleChange}
                 color={checked ? colors.dark : undefined}
             />
-        </View>
+        </Pressable>
     )
 }
 

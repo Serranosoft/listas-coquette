@@ -13,6 +13,7 @@ export default function ListContainer() {
 
     const [list, setList] = useState(null);
     const [items, setItems] = useState([]);
+    const [selectedItems, setSelectedItems] = useState([]);
 
     useEffect(() => {
         if (id) {
@@ -33,8 +34,8 @@ export default function ListContainer() {
 
     return (
         <>
-            <Stack.Screen options={{ header: () => <HeaderListContainer /> }} />
-            <ListPresentation {...{ getChecklist, setItems, items, list }}/>
+            <Stack.Screen options={{ header: () => <HeaderListContainer {...{ selectedItems }} /> }} />
+            <ListPresentation {...{ getChecklist, setItems, items, list, selectedItems, setSelectedItems }}/>
         </>
     )
 }

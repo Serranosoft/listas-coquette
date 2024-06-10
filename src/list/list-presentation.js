@@ -1,15 +1,11 @@
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { colors, gap, layout, padding, ui } from "../../src/utils/styles";
-import { useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
-import { getItemsFromListId, getListFromId } from "../../src/utils/storage";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { gap, layout, padding, ui } from "../../src/utils/styles";
 import SvgItem from "../../src/utils/svg-item";
 import ListAddItem from "./list-add-item";
 import ListItem from "./list-item";
 
-export default function ListPresentation({ getChecklist, setItems, items, list }) {
+export default function ListPresentation({ getChecklist, setItems, items, list, selectedItems, setSelectedItems }) {
 
-    console.log(items);
     return (
         <View style={[layout.flex]}>
             {
@@ -25,7 +21,7 @@ export default function ListPresentation({ getChecklist, setItems, items, list }
                             {
                                 items.length > 0 ?
                                     items.map((item) => {
-                                        return <ListItem {...{ item }} />
+                                        return <ListItem {...{ item, selectedItems, setSelectedItems }} />
                                     })
                                     :
                                     <Text style={[ui.muted, ui.center, { marginVertical: "auto" }]}>No hay registros añadidos</Text>
