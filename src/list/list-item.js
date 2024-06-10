@@ -56,7 +56,7 @@ export default function ListItem({ item, selectedItems, setSelectedItems }) {
 
     return (
         <Pressable style={[styles.wrapper, selected && { backgroundColor: "#F7B4B4", borderBottomColor: colors.gray}]} onPress={onPress} onLongPress={onLongPress}>
-            <Text style={[ui.h4, ui.black]}>{item.value}</Text>
+            <Text style={[ui.h4, ui.black, checked && { textDecorationLine: 'line-through', textDecorationStyle: 'solid', color: colors.muted } ]}>{item.value}</Text>
             <Checkbox
                 style={styles.checkbox}
                 value={checked}
