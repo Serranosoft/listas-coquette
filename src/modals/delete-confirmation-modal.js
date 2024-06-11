@@ -29,7 +29,7 @@ export default function DeleteModal({ setOpenDeleteModal, openDeleteModal, remov
                         </TouchableOpacity>
                         <View style={styles.content}>
                             <Text style={[ui.h4, ui.black]}>¿Quieres eliminar esta(s) lista(s)?</Text>
-                            <Text style={ui.muted}>Se eliminará el listado de forma permanente junto con todos sus recursos que contenga.</Text>
+                            <Text style={ui.muted}>Se eliminará el listado de forma permanente junto con todos los recursos que contenga.</Text>
                             <Text style={ui.muted}>Esta acción no se puede deshacer.</Text>
                             <TouchableOpacity style={components.button} onPress={remove}>
                                 <Text style={[ui.h4, ui.center, ui.black]}>Eliminar lista(s)</Text>

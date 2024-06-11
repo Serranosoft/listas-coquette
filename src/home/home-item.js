@@ -45,7 +45,7 @@ export default function HomeItem({ item, selectedLists, setSelectedLists }) {
 
     return (
         <TouchableOpacity
-            style={[layout.flexHalf, layout.alignCenter, gap.medium, selected && { backgroundColor: colors.light }]}
+            style={[layout.flexHalf, layout.alignCenter, gap.medium, padding.mediumVertical, selected && { backgroundColor: colors.light, borderRadius: 16 }]}
             onPress={onPress}
             onLongPress={onLongPress}
         >
