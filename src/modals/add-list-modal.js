@@ -19,12 +19,14 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
         if (title.length > 0) {
             await insertList(color, title);
             setOpenAddModal(false);
+            setTitle("");
         }
     }
 
     // Encargado de cerrar el modal
     function close() {
-        setOpenAddModal(false)
+        setOpenAddModal(false);
+        setTitle("");
     }
 
     // Boolean que me devuelve true/false cuando el background es muy oscuro para pintar el texto de blanco o negro
