@@ -7,13 +7,17 @@ export async function initDb() {
     await db.execAsync('PRAGMA foreign_keys = ON');
     db.execAsync(`
         CREATE TABLE IF NOT EXISTS list (id TEXT PRIMARY KEY NOT NULL, color TEXT, title TEXT);
-        CREATE TABLE IF NOT EXISTS listItem (id TEXT PRIMARY KEY NOT NULL, listId TEXT, value TEXT, checked BOOL, FOREIGN KEY (listId) REFERENCES list(id));
+        CREATE TABLE IF NOT EXISTS listItem (id TEXT PRIMARY KEY NOT NULL, listId TEXT, value TEXT, checked BOOL, FOREIGN KEY (listId) REFERENCES list(id) ON DELETE CASCADE);
     `);
 }
 
 export async function insertList(color, title) {
     const id = uuid.v4();
     db.runAsync("INSERT INTO list (id, color, title) VALUES (?, ?, ?)", id, color, title);
+}
+
+export async function deleteListFromId(id) {
+    db.runAsync("DELETE FROM list WHERE id = ?", id);
 }
 
 export async function insertItemToListId(listId, value, checked) {

@@ -7,7 +7,7 @@ import { getAllList, getAllListItem } from "../utils/storage";
 export default function HomeContainer() {
 
     const [lists, setLists] = useState([])
-    const [openAddModal, setOpenAddModal] = useState(false);
+    const [selectedLists, setSelectedLists] = useState([]);
 
     useFocusEffect(
         useCallback(() => {
@@ -15,11 +15,7 @@ export default function HomeContainer() {
         }, [])
     );
 
-    useEffect(() => {
-        if (!openAddModal) {
-            fetchDb();
-        }
-    }, [openAddModal])
+
 
     async function fetchDb() {
         const result = await getAllList();
@@ -28,8 +24,8 @@ export default function HomeContainer() {
 
     return (
         <>
-            <Stack.Screen options={{ header: () => <HeaderHomeContainer {...{ openAddModal, setOpenAddModal }} /> }} />
-            <Home {...{ lists }} />
+            <Stack.Screen options={{ header: () => <HeaderHomeContainer {...{ setSelectedLists, selectedLists, fetchDb }} /> }} />
+            <Home {...{ lists, selectedLists, setSelectedLists }} />
         </>
     )
 }

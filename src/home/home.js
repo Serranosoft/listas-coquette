@@ -2,7 +2,7 @@ import { FlatList, View } from "react-native";
 import { gap, layout, padding } from "../utils/styles";
 import HomeItem from "./home-item";
 
-export default function Home({ lists }) {
+export default function Home({ lists, selectedLists, setSelectedLists }) {
 
     return (
         <>
@@ -14,7 +14,7 @@ export default function Home({ lists }) {
                             contentContainerStyle={layout.contentList}
                             numColumns={2}
                             columnWrapperStyle={gap.medium}
-                            renderItem={({ item, index }) => <HomeItem {...{ item }} />}
+                            renderItem={({ item, index }) => <HomeItem {...{ item, selectedLists, setSelectedLists }} />}
                         />
                     }
                 </View>
