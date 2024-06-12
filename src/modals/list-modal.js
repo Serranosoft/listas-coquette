@@ -8,29 +8,40 @@ import ColorPicker, { HueSlider, Panel1 } from 'reanimated-color-picker';
 import SvgItem from "../utils/svg-item"
 import { ColorsHandler } from "../utils/colors-handler"
 import Animated, { useSharedValue, withSpring, useAnimatedStyle, ZoomIn } from 'react-native-reanimated';
-import { insertList } from "../utils/storage"
+import { insertList, updateList } from "../utils/storage"
 
-export default function AddListModal({ setOpenAddModal, openAddModal }) {
+export default function ListModal({ setOpenListModal, openListModal, list, isEdit = false, onSave }) {
 
-    const [color, setColor] = useState("rgb(85, 172, 238)")
-    const [title, setTitle] = useState("");
+    const [color, setColor] = useState(list ? list.color : "rgb(85, 172, 238)")
+    const [title, setTitle] = useState(list ? list.title : "");
+    const [isReadable, setIsReadable] = useState(false);
 
     async function save() {
         if (title.length > 0) {
-            await insertList(color, title);
-            setOpenAddModal(false);
-            setTitle("");
+
+            if (!isEdit) {
+                await insertList(color, title);
+                setTitle("");
+            } else {
+                await updateList(list.id, color, title);
+            }
+
+            if (onSave) {
+                onSave();
+            }
+
+            setOpenListModal(false);
         }
     }
 
     // Encargado de cerrar el modal
     function close() {
-        setOpenAddModal(false);
-        setTitle("");
-    }
+        setOpenListModal(false);
 
-    // Boolean que me devuelve true/false cuando el background es muy oscuro para pintar el texto de blanco o negro
-    const isReadable = ColorsHandler.isReadableForBlackBackground(color);
+        if (!isEdit) {
+            setTitle("");
+        }
+    }
 
     // Animación "salto" para el botón «Crear lista» cuando cambia de color
     const translateY = useSharedValue(1);
@@ -45,13 +56,17 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
         if (color) {
             onBounce();
         }
+
+        // Boolean que me devuelve true/false cuando el background es muy oscuro para pintar el texto de blanco o negro
+        const isReadable = ColorsHandler.isReadableForBlackBackground(color);
+        setIsReadable(isReadable);
     }, [color]);
 
     return (
         <Modal
             animationType="fade"
             transparent={true}
-            visible={openAddModal}
+            visible={openListModal}
             onRequestClose={close}>
             <View style={styles.center}>
                 <View style={styles.wrapper}>
@@ -100,7 +115,7 @@ export default function AddListModal({ setOpenAddModal, openAddModal }) {
                                 <Animated.View style={[components.button, layout.w100, { backgroundColor: color }]} entering={ZoomIn.delay(425)}>
                                     <Animated.View style={animatedStyle}>
                                         <TouchableOpacity onPress={save}>
-                                            <Text style={[ui.h4, ui.center, { color: isReadable ? "black" : "white" }]}>Crear lista</Text>
+                                            <Text style={[ui.h4, ui.center, { color: isReadable ? "black" : "white" }]}>{isEdit ? "Editar lista" : "Crear lista"}</Text>
                                         </TouchableOpacity>
                                     </Animated.View>
                                 </Animated.View>

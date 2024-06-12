@@ -16,6 +16,11 @@ export async function insertList(color, title) {
     db.runAsync("INSERT INTO list (id, color, title) VALUES (?, ?, ?)", id, color, title);
 }
 
+export async function updateList(id, color, title) {
+    db.runAsync("UPDATE list SET color = ? WHERE id = ?", color, id);
+    db.runAsync("UPDATE list SET title = ? WHERE id = ?", title, id);
+}
+
 export async function deleteListFromId(id) {
     db.runAsync("DELETE FROM list WHERE id = ?", id);
 }

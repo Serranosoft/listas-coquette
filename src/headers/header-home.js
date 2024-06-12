@@ -3,7 +3,7 @@ import { components, header, ui } from "../utils/styles";
 import { Link } from "expo-router";
 import { Path, Svg } from "react-native-svg";
 
-export default function HeaderHome({ setOpenAddModal, selectedLists, setOpenDeleteModal }) {
+export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDeleteModal }) {
 
     return (
         <View style={components.header}>
@@ -23,7 +23,7 @@ export default function HeaderHome({ setOpenAddModal, selectedLists, setOpenDele
                         </Svg>
                     </TouchableOpacity>
                     :
-                    <TouchableOpacity onPress={() => setOpenAddModal(true)}>
+                    <TouchableOpacity onPress={() => setOpenListModal(true)}>
                         <Image style={header.img} source={require("../../assets/plus.png")} />
                     </TouchableOpacity>
             }

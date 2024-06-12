@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { getItemsFromListId, getListFromId } from "../../src/utils/storage";
 import SvgItem from "../../src/utils/svg-item";
 import HeaderListContainer from "../headers/header-list-container";
+import ListHero from "./list-hero";
+import ListAddItem from "./list-add-item";
 
 export default function ListContainer() {
 
@@ -14,6 +16,7 @@ export default function ListContainer() {
     const [list, setList] = useState(null);
     const [items, setItems] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
+    const [openListModal, setOpenListModal] = useState(false);
 
     useEffect(() => {
         if (id) {
@@ -35,7 +38,17 @@ export default function ListContainer() {
     return (
         <>
             <Stack.Screen options={{ header: () => <HeaderListContainer {...{ selectedItems, setSelectedItems, getChecklist }} /> }} />
-            <ListPresentation {...{ getChecklist, setItems, items, list, selectedItems, setSelectedItems }}/>
+            <View style={[layout.flex, layout.white]}>
+                {
+                    list &&
+                    <View style={[layout.flex, layout.alignCenter, padding.bigTop, gap.medium]}>
+                        <ListHero {...{ list, openListModal, setOpenListModal, getList }} />
+                        <ListAddItem {...{ getChecklist, list }} />
+                        <ListPresentation {...{ items, selectedItems, setSelectedItems }} />
+                    </View>
+
+                }
+            </View>
         </>
     )
 }

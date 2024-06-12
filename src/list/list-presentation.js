@@ -1,36 +1,24 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { colors, gap, layout, padding, ui } from "../../src/utils/styles";
-import SvgItem from "../../src/utils/svg-item";
-import ListAddItem from "./list-add-item";
+import { colors, ui } from "../../src/utils/styles";
 import ListItem from "./list-item";
 
-export default function ListPresentation({ getChecklist, setItems, items, list, selectedItems, setSelectedItems }) {
+export default function ListPresentation({ items, selectedItems, setSelectedItems }) {
 
     return (
-        <View style={[layout.flex, layout.white]}>
-            {
-                list &&
-                <View style={[layout.flex, layout.alignCenter, padding.bigTop, gap.medium]}>
-                    <SvgItem {...{ width: 135, height: 135, color: list.color }} />
-                    <Text style={[ui.h3, ui.black]}>{list.title}</Text>
 
-                    <ListAddItem {...{ getChecklist, list, setItems }} />
-
-                    <View style={styles.checkboxList}>
-                        <ScrollView style={{ gap: 16, width: "100%", marginVertical: 8 }} contentContainerStyle={{ gap: 8 }}>
-                            {
-                                items.length > 0 ?
-                                    items.map((item) => {
-                                        return <ListItem key={item.id} {...{ item, selectedItems, setSelectedItems }} />
-                                    })
-                                    :
-                                    <Text style={[ui.muted, ui.center, { marginVertical: "auto" }]}>No hay registros añadidos</Text>
-                            }
-                        </ScrollView>
-                    </View>
-                </View>
-            }
+        <View style={styles.checkboxList}>
+            <ScrollView style={{ gap: 16, width: "100%", marginVertical: 8 }} contentContainerStyle={{ gap: 8 }}>
+                {
+                    items.length > 0 ?
+                        items.map((item) => {
+                            return <ListItem key={item.id} {...{ item, selectedItems, setSelectedItems }} />
+                        })
+                        :
+                        <Text style={[ui.muted, ui.center, { marginVertical: "auto" }]}>No hay registros añadidos</Text>
+                }
+            </ScrollView>
         </View>
+
     )
 }
 
@@ -42,5 +30,5 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         marginVertical: 16,
         backgroundColor: colors.gray,
-    },
+    }
 })

@@ -15,8 +15,6 @@ export default function HomeContainer() {
         }, [])
     );
 
-
-
     async function fetchDb() {
         const result = await getAllList();
         setLists(result);
