@@ -44,7 +44,7 @@ export default function ListContainer() {
                     <View style={[layout.flex, layout.alignCenter, padding.bigTop, gap.medium]}>
                         <ListHero {...{ list, openListModal, setOpenListModal, getList }} />
                         <ListAddItem {...{ getChecklist, list }} />
-                        <ListPresentation {...{ items, selectedItems, setSelectedItems }} />
+                        <ListPresentation {...{ items, selectedItems, setSelectedItems, getChecklist }} />
                     </View>
 
                 }

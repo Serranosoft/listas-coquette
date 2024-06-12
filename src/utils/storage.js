@@ -30,6 +30,10 @@ export async function insertItemToListId(listId, value, checked) {
     db.runAsync("INSERT INTO listItem (id, listId, value, checked) VALUES (?, ?, ?, ?)", id, listId, value, checked);
 }
 
+export async function updateItem(id, value) {
+    db.runAsync("UPDATE listItem SET value = ? WHERE id = ?", value, id);
+}
+
 export async function updateItemStatus(id, checked) {
     db.runAsync("UPDATE listItem SET checked = ? WHERE id = ?", checked, id);
 }

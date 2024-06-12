@@ -4,11 +4,13 @@ import { Pressable, StyleSheet, Text, ToastAndroid, View } from "react-native"
 import { colors, ui } from "../utils/styles";
 import { updateItemStatus } from "../utils/storage";
 import * as Clipboard from 'expo-clipboard';
+import ItemModal from "../modals/item-modal";
 
-export default function ListItem({ item, selectedItems, setSelectedItems }) {
+export default function ListItem({ item, selectedItems, setSelectedItems, getChecklist }) {
 
     const [checked, setChecked] = useState(false);
     const [selected, setSelected] = useState(false);
+    const [openItemModal, setOpenItemModal] = useState(false);
 
     useEffect(() => {
         if (item && item.hasOwnProperty("checked")) {
@@ -44,7 +46,7 @@ export default function ListItem({ item, selectedItems, setSelectedItems }) {
                 setSelected(false);
             }
         } else {
-            setSelected(false);
+            setOpenItemModal(true)
         }
     }
 
@@ -59,15 +61,18 @@ export default function ListItem({ item, selectedItems, setSelectedItems }) {
     }, [selected])
 
     return (
-        <Pressable style={[styles.wrapper, selected && { backgroundColor: colors.light/* "#F7B4B4" */, borderBottomColor: colors.gray}]} onPress={onPress} onLongPress={onLongPress}>
-            <Text style={[ui.h4, ui.black, checked && { textDecorationLine: 'line-through', textDecorationStyle: 'solid', color: colors.muted } ]}>{item.value}</Text>
-            <Checkbox
-                style={styles.checkbox}
-                value={checked}
-                onValueChange={handleChange}
-                color={checked ? colors.dark : undefined}
-            />
-        </Pressable>
+        <>
+            <Pressable style={[styles.wrapper, selected && { backgroundColor: colors.light/* "#F7B4B4" */, borderBottomColor: colors.gray}]} onPress={onPress} onLongPress={onLongPress}>
+                <Text style={[ui.h4, ui.black, checked && { textDecorationLine: 'line-through', textDecorationStyle: 'solid', color: colors.muted } ]}>{item.value}</Text>
+                <Checkbox
+                    style={styles.checkbox}
+                    value={checked}
+                    onValueChange={handleChange}
+                    color={checked ? colors.dark : undefined}
+                />
+            </Pressable>
+            <ItemModal {...{ openItemModal, setOpenItemModal, item, onSave: getChecklist }}/>
+        </>
     )
 }
 
