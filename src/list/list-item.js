@@ -1,8 +1,9 @@
 import Checkbox from "expo-checkbox"
 import { useEffect, useState } from "react"
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, Text, ToastAndroid, View } from "react-native"
 import { colors, ui } from "../utils/styles";
 import { updateItemStatus } from "../utils/storage";
+import * as Clipboard from 'expo-clipboard';
 
 export default function ListItem({ item, selectedItems, setSelectedItems }) {
 
@@ -24,12 +25,15 @@ export default function ListItem({ item, selectedItems, setSelectedItems }) {
         setChecked(!checked);
     }
 
-    function onLongPress() {
+    async function onLongPress() {
         if (selected) {
             setSelected(false);
         } else {
             setSelected(true);
         }
+
+        await Clipboard.setStringAsync(item.value);
+        ToastAndroid.showWithGravityAndOffset(`¡${item.value} Copiado!`, ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
     }
 
     function onPress() {
