@@ -20,10 +20,12 @@ export default function ItemModal({ openItemModal, setOpenItemModal, item, onSav
     }
 
     function save() {
-        updateItem(item.id, value);
-        close();
-        if (onSave) {
-            onSave();
+        if (value.length > 0) {
+            updateItem(item.id, value);
+            close();
+            if (onSave) {
+                onSave();
+            }
         }
     }
 
