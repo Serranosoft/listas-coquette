@@ -2,7 +2,6 @@ import * as SQLite from 'expo-sqlite';
 import uuid from 'react-native-uuid';
 
 const db = SQLite.openDatabaseSync("coquette_list");
-
 export async function initDb() {
     await db.execAsync('PRAGMA foreign_keys = ON');
     db.execAsync(`
@@ -11,6 +10,8 @@ export async function initDb() {
     `);
 }
 
+
+// LISTAS
 export async function insertList(color, title) {
     const id = uuid.v4();
     db.runAsync("INSERT INTO list (id, color, title) VALUES (?, ?, ?)", id, color, title);
@@ -24,6 +25,13 @@ export async function updateList(id, color, title) {
 export async function deleteListFromId(id) {
     db.runAsync("DELETE FROM list WHERE id = ?", id);
 }
+
+export async function getListFromId(id) {
+    const x = await db.getFirstAsync('SELECT * FROM list WHERE id = ?', id)
+    return x;
+}
+
+// ITEMS
 
 export async function insertItemToListId(listId, value, checked) {
     const id = uuid.v4();
@@ -47,11 +55,17 @@ export async function getItemsFromListId(id) {
     return x;
 }
 
-export async function getListFromId(id) {
-    const x = await db.getFirstAsync('SELECT * FROM list WHERE id = ?', id)
+export async function getItemsLength(listId) {
+    const x = await db.getFirstAsync('SELECT COUNT(*) FROM listItem WHERE listId = ?', listId);
     return x;
 }
 
+export async function getItemsCheckedLength(listId) {
+    const x = await db.getFirstAsync('SELECT COUNT(*) FROM listItem WHERE checked = ? AND listId = ?', true, listId);
+    return x;
+}
+
+// AUX
 export async function dropAll() {
     db.execAsync(`
         DROP TABLE IF EXISTS listItem;
