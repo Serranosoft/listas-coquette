@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import SvgItem from "../utils/svg-item";
-import { layout, ui } from "../utils/styles";
+import { layout, padding, ui } from "../utils/styles";
 import ListModal from "../modals/list-modal";
 
 export default function ListHero({ list, openListModal, setOpenListModal, getList }) {
@@ -13,7 +13,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                     <Image source={require("../../assets/edit.png")} style={styles.edit} />
                 </TouchableOpacity>
             </View>
-            <Text style={[ui.h3, ui.black]}>{list.title}</Text>
+            <Text style={[ui.h3, ui.black, ui.center, padding.bigHorizontal]}>{list.title}</Text>
 
             <ListModal {...{ list, openListModal, setOpenListModal, isEdit: true, onSave: getList }}/>
         </>
