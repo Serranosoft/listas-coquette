@@ -1,8 +1,8 @@
 import Checkbox from "expo-checkbox"
 import { useEffect, useState } from "react"
-import { Pressable, StyleSheet, Text, ToastAndroid, View } from "react-native"
-import { colors, ui } from "../utils/styles";
-import { updateItemStatus } from "../utils/storage";
+import { Pressable, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native"
+import { colors, gap, layout, ui } from "../utils/styles";
+import { deleteItemFromId, updateItemStatus } from "../utils/storage";
 import * as Clipboard from 'expo-clipboard';
 import ItemModal from "../modals/item-modal";
 
@@ -45,9 +45,16 @@ export default function ListItem({ item, selectedItems, setSelectedItems, getChe
             } else {
                 setSelected(false);
             }
-        } else {
-            setOpenItemModal(true)
         }
+    }
+
+    function removeItem() {
+        deleteItemFromId(item.id);
+        getChecklist();
+    }
+
+    function openEditItemModal() {
+        setOpenItemModal(true);
     }
 
     useEffect(() => {
@@ -62,15 +69,22 @@ export default function ListItem({ item, selectedItems, setSelectedItems, getChe
 
     return (
         <>
-            <Pressable style={[styles.wrapper, selected && { backgroundColor: colors.light/* "#F7B4B4" */, borderBottomColor: colors.gray}]} onPress={onPress} onLongPress={onLongPress}>
-                <Text style={[ui.h4, ui.black, checked && { textDecorationLine: 'line-through', textDecorationStyle: 'solid', color: colors.muted } ]}>{item.value}</Text>
+            <TouchableOpacity style={[styles.wrapper, selected && { backgroundColor: colors.light, borderBottomColor: colors.gray}]} onPress={onPress} onLongPress={onLongPress}>
+                <View style={[layout.row, layout.alignCenter, gap.big]}>
+                    <TouchableOpacity onPress={removeItem}>
+                        <Text style={[ui.muted]}>x</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={openEditItemModal}>
+                        <Text style={[ui.h4, ui.black, checked && { textDecorationLine: 'line-through', textDecorationStyle: 'solid', color: colors.muted } ]}>{item.value}</Text>
+                    </TouchableOpacity>
+                </View>
                 <Checkbox
                     style={styles.checkbox}
                     value={checked}
                     onValueChange={handleChange}
                     color={checked ? colors.dark : undefined}
                 />
-            </Pressable>
+            </TouchableOpacity>
             <ItemModal {...{ openItemModal, setOpenItemModal, item, onSave: getChecklist }}/>
         </>
     )
@@ -90,8 +104,8 @@ const styles = StyleSheet.create({
 
     checkbox: {
         borderRadius: 100,
-        height: 32,
-        width: 32,
+        height: 28,
+        width: 28,
     }
 
 })

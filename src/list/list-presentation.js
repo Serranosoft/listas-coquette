@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { colors, ui } from "../../src/utils/styles";
+import { colors, margin, ui } from "../../src/utils/styles";
 import ListItem from "./list-item";
 
 export default function ListPresentation({ items, selectedItems, setSelectedItems, getChecklist }) {
@@ -14,7 +14,7 @@ export default function ListPresentation({ items, selectedItems, setSelectedItem
                             return <ListItem key={item.id} {...{ item, selectedItems, setSelectedItems, getChecklist }} />
                         })
                         :
-                        <Text style={[ui.muted, ui.center, { marginVertical: "auto" }]}>No hay registros añadidos</Text>
+                        <Text style={[ui.muted, ui.center, margin.bigTop]}>No hay registros añadidos</Text>
                 }
             </ScrollView>
         </View>
