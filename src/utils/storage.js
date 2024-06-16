@@ -60,8 +60,8 @@ export async function getItemsLength(listId) {
     return x;
 }
 
-export async function getItemsCheckedLength(listId) {
-    const x = await db.getFirstAsync('SELECT COUNT(*) FROM listItem WHERE checked = ? AND listId = ?', true, listId);
+export async function getItemsCheckedLength(listId, checked = true) {
+    const x = await db.getFirstAsync('SELECT COUNT(*) FROM listItem WHERE checked = ? AND listId = ?', checked, listId);
     return x;
 }
 

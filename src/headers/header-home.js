@@ -8,7 +8,7 @@ export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDel
     return (
         <View style={components.header}>
 
-            <Link href="/settings" asChild>
+            <Link href="/summary" asChild>
                 <TouchableOpacity>
                     <Image style={header.img} source={require("../../assets/settings.png")} />
                 </TouchableOpacity>
