@@ -14,7 +14,7 @@ export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDel
                 </TouchableOpacity>
             </Link>
 
-            <Text style={[ui.h4, ui.black]}>Listas Coquette</Text>
+            <Text style={[ui.h4, ui.black]}>Mis listas</Text>
             {
                 selectedLists.length > 0 ?
                     <TouchableOpacity onPress={() => setOpenDeleteModal(true)}>

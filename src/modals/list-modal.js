@@ -9,6 +9,7 @@ import SvgItem from "../utils/svg-item"
 import { ColorsHandler } from "../utils/colors-handler"
 import Animated, { useSharedValue, withSpring, useAnimatedStyle, ZoomIn } from 'react-native-reanimated';
 import { insertList, updateList } from "../utils/storage"
+import { convertDateToString } from "../utils/date"
 
 export default function ListModal({ setOpenListModal, openListModal, list, isEdit = false, onSave }) {
 
@@ -18,12 +19,12 @@ export default function ListModal({ setOpenListModal, openListModal, list, isEdi
 
     async function save() {
         if (title.length > 0) {
-
+            
             if (!isEdit) {
-                await insertList(color, title);
+                await insertList(color, title, convertDateToString(new Date()));
                 setTitle("");
             } else {
-                await updateList(list.id, color, title);
+                await updateList(list.id, color, title, convertDateToString(new Date()));
             }
 
             if (onSave) {

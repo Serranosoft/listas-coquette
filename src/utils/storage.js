@@ -5,21 +5,22 @@ const db = SQLite.openDatabaseSync("coquette_list");
 export async function initDb() {
     await db.execAsync('PRAGMA foreign_keys = ON');
     db.execAsync(`
-        CREATE TABLE IF NOT EXISTS list (id TEXT PRIMARY KEY NOT NULL, color TEXT, title TEXT);
-        CREATE TABLE IF NOT EXISTS listItem (id TEXT PRIMARY KEY NOT NULL, listId TEXT, value TEXT, checked BOOL, FOREIGN KEY (listId) REFERENCES list(id) ON DELETE CASCADE);
+        CREATE TABLE IF NOT EXISTS list (id TEXT PRIMARY KEY NOT NULL, color TEXT, title TEXT, last_update TEXT);
+        CREATE TABLE IF NOT EXISTS listItem (id TEXT PRIMARY KEY NOT NULL, listId TEXT, value TEXT, checked BOOL, last_update TEXT, FOREIGN KEY (listId) REFERENCES list(id) ON DELETE CASCADE);
     `);
 }
 
 
 // LISTAS
-export async function insertList(color, title) {
+export async function insertList(color, title, last_update) {
     const id = uuid.v4();
-    db.runAsync("INSERT INTO list (id, color, title) VALUES (?, ?, ?)", id, color, title);
+    db.runAsync("INSERT INTO list (id, color, title, last_update) VALUES (?, ?, ?, ?)", id, color, title, last_update);
 }
 
-export async function updateList(id, color, title) {
+export async function updateList(id, color, title, last_update) {
     db.runAsync("UPDATE list SET color = ? WHERE id = ?", color, id);
     db.runAsync("UPDATE list SET title = ? WHERE id = ?", title, id);
+    db.runAsync("UPDATE list SET last_update = ? WHERE id = ?", last_update, id);
 }
 
 export async function deleteListFromId(id) {
@@ -33,13 +34,16 @@ export async function getListFromId(id) {
 
 // ITEMS
 
-export async function insertItemToListId(listId, value, checked) {
+export async function insertItemToListId(listId, value, checked, last_update) {
+    console.log(last_update);
     const id = uuid.v4();
-    db.runAsync("INSERT INTO listItem (id, listId, value, checked) VALUES (?, ?, ?, ?)", id, listId, value, checked);
+    db.runAsync("INSERT INTO listItem (id, listId, value, checked, last_update) VALUES (?, ?, ?, ?, ?)", id, listId, value, checked, last_update);
 }
 
-export async function updateItem(id, value) {
+export async function updateItem(id, value, last_update) {
+    console.log(last_update);
     db.runAsync("UPDATE listItem SET value = ? WHERE id = ?", value, id);
+    db.runAsync("UPDATE listItem SET last_update = ? WHERE id = ?", last_update, id);
 }
 
 export async function updateItemStatus(id, checked) {
@@ -68,6 +72,7 @@ export async function getItemsCheckedLength(listId, checked = true) {
 // AUX
 export async function dropAll() {
     db.execAsync(`
+        DROP TABLE IF EXISTS list;
         DROP TABLE IF EXISTS listItem;
     `);
 }

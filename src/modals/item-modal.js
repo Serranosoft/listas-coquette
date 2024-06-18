@@ -9,6 +9,7 @@ import SvgItem from "../utils/svg-item"
 import { ColorsHandler } from "../utils/colors-handler"
 import Animated, { useSharedValue, withSpring, useAnimatedStyle, ZoomIn } from 'react-native-reanimated';
 import { insertList, updateItem, updateList } from "../utils/storage"
+import { convertDateToString } from "../utils/date"
 
 
 export default function ItemModal({ openItemModal, setOpenItemModal, item, onSave }) {
@@ -21,7 +22,7 @@ export default function ItemModal({ openItemModal, setOpenItemModal, item, onSav
 
     function save() {
         if (value.length > 0) {
-            updateItem(item.id, value);
+            updateItem(item.id, value, convertDateToString(new Date()));
             close();
             if (onSave) {
                 onSave();

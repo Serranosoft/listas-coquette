@@ -2,7 +2,7 @@ import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { components, header, ui } from "../utils/styles";
 import { Path, Svg } from "react-native-svg";
 
-export default function HeaderList({ selectedItems, back, removeItems }) {
+export default function HeaderList({ list, selectedItems, back, removeItems }) {
 
     return (
         <View style={components.header}>
@@ -11,7 +11,7 @@ export default function HeaderList({ selectedItems, back, removeItems }) {
                 <Image style={header.img} source={require("../../assets/back.png")} />
             </Pressable>
 
-            <Text style={[ui.h4, ui.black]}>Personaliza tu lista</Text>
+            { list ? <Text style={[ui.h4, ui.black]}>{list.title}</Text> : <Text></Text> }
 
             {
                 selectedItems.length > 0 ?

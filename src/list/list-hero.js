@@ -14,6 +14,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                 </TouchableOpacity>
             </View>
             <Text style={[ui.h3, ui.black, ui.center, padding.bigHorizontal]}>{list.title}</Text>
+            { list.last_update && <Text style={[ui.muted, { fontSize: 14, marginTop: -12 }]}>{list.last_update}</Text> }
 
             <ListModal {...{ list, openListModal, setOpenListModal, isEdit: true, onSave: getList }}/>
         </>

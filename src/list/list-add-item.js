@@ -2,6 +2,7 @@ import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from "r
 import { colors, ui } from "../utils/styles";
 import { useRef, useState } from "react";
 import { insertItemToListId } from "../utils/storage";
+import { convertDateToString } from "../utils/date";
 
 export default function ListAddItem({ getChecklist, list }) {
 
@@ -16,7 +17,7 @@ export default function ListAddItem({ getChecklist, list }) {
 
     async function add() {
         if (value.length > 0) {
-            await insertItemToListId(list.id, value, false);
+            await insertItemToListId(list.id, value, false, convertDateToString(new Date()));
             getChecklist();
             onAdd();
         }

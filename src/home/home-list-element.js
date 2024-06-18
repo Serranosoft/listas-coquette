@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity } from "react-native";
-import { colors, gap, layout, padding, ui } from "../utils/styles";
+import { colors, gap, layout, margin, padding, ui } from "../utils/styles";
 import SvgItem from "../utils/svg-item";
 import {  router, useFocusEffect } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
@@ -60,12 +60,12 @@ export default function HomeListElement({ list, selectedLists, setSelectedLists 
 
     return (
         <TouchableOpacity
-            style={[layout.flexHalf, layout.alignCenter, gap.small, padding.mediumVertical, selected && { backgroundColor: colors.light, borderRadius: 16 }]}
+            style={[layout.flexHalf, layout.alignCenter, padding.mediumVertical, selected && { backgroundColor: colors.light, borderRadius: 16 }]}
             onPress={onPress}
             onLongPress={onLongPress}
         >
             <SvgItem {...{ width: 135, height: 135, color: list.color }} />
-            { progress && <Text style={[ui.muted, { fontSize: 14 }]}>{progress.current} / {progress.total}</Text> }
+            { progress && <Text style={[ui.muted, margin.smallTop, { fontSize: 12.5 }]}>{progress.current} / {progress.total}</Text> }
             <Text style={[ui.text, ui.black, ui.center]}>{list.title}</Text>
         </TouchableOpacity>
     )

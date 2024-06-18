@@ -2,7 +2,7 @@ import { deleteItemFromId } from "../utils/storage";
 import HeaderList from "./header-list";
 import { router } from "expo-router";
 
-export default function HeaderListContainer({ setSelectedItems, selectedItems, getChecklist }) {
+export default function HeaderListContainer({ list, setSelectedItems, selectedItems, getChecklist }) {
 
     function removeItems() {
         selectedItems.map(async (item) => await deleteItemFromId(item));
@@ -14,6 +14,6 @@ export default function HeaderListContainer({ setSelectedItems, selectedItems, g
         router.back();
     }
 
-    return <HeaderList {...{ selectedItems, back, removeItems }} />
+    return <HeaderList {...{ list, selectedItems, back, removeItems }} />
     
 }
