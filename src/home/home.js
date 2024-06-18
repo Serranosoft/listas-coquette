@@ -1,10 +1,6 @@
-import { Button, Dimensions, FlatList, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { gap, layout, padding } from "../utils/styles";
 import HomeListElement from "./home-list-element";
-import { dropAll } from "../utils/storage";
-
-
-
 
 export default function Home({ lists, selectedLists, setSelectedLists }) {
 

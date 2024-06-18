@@ -1,5 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 import uuid from 'react-native-uuid';
+import { convertDateToString } from './date';
 
 const db = SQLite.openDatabaseSync("coquette_list");
 export async function initDb() {
@@ -8,6 +9,13 @@ export async function initDb() {
         CREATE TABLE IF NOT EXISTS list (id TEXT PRIMARY KEY NOT NULL, color TEXT, title TEXT, last_update TEXT);
         CREATE TABLE IF NOT EXISTS listItem (id TEXT PRIMARY KEY NOT NULL, listId TEXT, value TEXT, checked BOOL, last_update TEXT, FOREIGN KEY (listId) REFERENCES list(id) ON DELETE CASCADE);
     `);
+}
+
+export async function insertInitialList() {
+    const listId = uuid.v4();
+    db.runAsync("INSERT INTO list (id, color, title, last_update) VALUES (?, ?, ?, ?)", listId, "rgb(254,143,171)", "Lista de la compra", convertDateToString(new Date()));
+    const listItemId = uuid.v4();
+    db.runAsync("INSERT INTO listItem (id, listId, value, checked, last_update) VALUES (?, ?, ?, ?, ?)", listItemId, listId, "Magdalenas", false, convertDateToString(new Date()));
 }
 
 
