@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import Home from "./home";
 import HeaderHomeContainer from "../headers/header-home-container";
 import { Stack, useFocusEffect } from "expo-router";
-import { getAllList, getAllListItem } from "../utils/storage";
+import { getAllList } from "../utils/storage";
 
 export default function HomeContainer() {
 

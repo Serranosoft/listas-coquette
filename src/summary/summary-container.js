@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import SummaryHero from "./summary-hero";
-import { getAllList, getItemsCheckedLength, getItemsLength } from "../utils/storage";
+import { getAllList, getItemsCheckedLength } from "../utils/storage";
 import { Stack } from "expo-router";
 import SummaryChart from "./summary-chart";
 import { View } from "react-native";
-import { gap, layout, padding, ui } from "../utils/styles";
+import { gap, layout, padding } from "../utils/styles";
 import HeaderSummaryContainer from "../headers/header-summary-container";
 
 export default function SummaryContainer() {

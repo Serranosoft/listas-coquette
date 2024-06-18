@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity } from "react-native";
-import { colors, gap, layout, margin, padding, ui } from "../utils/styles";
+import { colors, layout, margin, padding, ui } from "../utils/styles";
 import SvgItem from "../utils/svg-item";
 import {  router, useFocusEffect } from "expo-router";
 import { useCallback, useEffect, useState } from "react";

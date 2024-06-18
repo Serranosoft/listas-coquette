@@ -43,13 +43,11 @@ export async function getListFromId(id) {
 // ITEMS
 
 export async function insertItemToListId(listId, value, checked, last_update) {
-    console.log(last_update);
     const id = uuid.v4();
     db.runAsync("INSERT INTO listItem (id, listId, value, checked, last_update) VALUES (?, ?, ?, ?, ?)", id, listId, value, checked, last_update);
 }
 
 export async function updateItem(id, value, last_update) {
-    console.log(last_update);
     db.runAsync("UPDATE listItem SET value = ? WHERE id = ?", value, id);
     db.runAsync("UPDATE listItem SET last_update = ? WHERE id = ?", last_update, id);
 }
@@ -75,24 +73,4 @@ export async function getItemsLength(listId) {
 export async function getItemsCheckedLength(listId, checked = true) {
     const x = await db.getFirstAsync('SELECT COUNT(*) FROM listItem WHERE checked = ? AND listId = ?', checked, listId);
     return x;
-}
-
-// AUX
-export async function dropAll() {
-    db.execAsync(`
-        DROP TABLE IF EXISTS list;
-        DROP TABLE IF EXISTS listItem;
-    `);
-}
-
-
-export async function getAllList() {
-    const allRows = await db.getAllAsync('SELECT * FROM list');
-    return allRows;
-}
-export async function getAllListItem() {
-    const allRows = await db.getAllAsync('SELECT * FROM listItem');
-    for (const row of allRows) {
-        console.log(row.id, row.listId, row.value, row.checked);
-    }
 }

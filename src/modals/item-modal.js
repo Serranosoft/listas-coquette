@@ -1,14 +1,11 @@
-import { ScrollView, StyleSheet, TextInput, View } from "react-native"
+import { StyleSheet, TextInput, View } from "react-native"
 import { Text } from "react-native"
 import { TouchableOpacity } from "react-native"
 import { Modal } from "react-native"
-import { colors, components, gap, layout, ui } from "../utils/styles"
-import { useEffect, useState } from "react"
-import ColorPicker, { HueSlider, Panel1 } from 'reanimated-color-picker';
-import SvgItem from "../utils/svg-item"
-import { ColorsHandler } from "../utils/colors-handler"
-import Animated, { useSharedValue, withSpring, useAnimatedStyle, ZoomIn } from 'react-native-reanimated';
-import { insertList, updateItem, updateList } from "../utils/storage"
+import { colors, components, layout, ui } from "../utils/styles"
+import { useState } from "react"
+import Animated, { ZoomIn } from 'react-native-reanimated';
+import { updateItem } from "../utils/storage"
 import { convertDateToString } from "../utils/date"
 
 

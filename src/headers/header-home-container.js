@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import HeaderHome from "./header-home";
 import ListModal from "../modals/list-modal";
-import { deleteListFromId, init, insertTest } from "../utils/storage";
+import { deleteListFromId } from "../utils/storage";
 import DeleteModal from "../modals/delete-confirmation-modal";
 
 export default function HeaderHomeContainer({ setSelectedLists, selectedLists, fetchDb }) {

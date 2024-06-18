@@ -3,7 +3,7 @@ import { layout, padding, ui } from "../utils/styles"
 import { ContributionGraph } from "react-native-chart-kit";
 import { useEffect, useState } from "react";
 import { getAllList, getItemsFromListId } from "../utils/storage";
-import { convertStringDateToDateObject, parseDateToString, unparseDate } from "../utils/date";
+import { convertStringDateToDateObject, parseDateToString } from "../utils/date";
 
 export default function SummaryChart() {
 
@@ -45,8 +45,6 @@ export default function SummaryChart() {
 
         setChanges(Object.values(group));
     }
-
-    
 
     return (
         <View style={[layout.flex, padding.bigVertical]}>

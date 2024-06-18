@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import SvgItem from "../utils/svg-item";
-import { layout, padding, ui } from "../utils/styles";
+import { padding, ui } from "../utils/styles";
 import ListModal from "../modals/list-modal";
 
 export default function ListHero({ list, openListModal, setOpenListModal, getList }) {

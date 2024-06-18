@@ -1,6 +1,6 @@
 import Checkbox from "expo-checkbox"
 import { useEffect, useState } from "react"
-import { Pressable, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native"
+import { StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native"
 import { colors, gap, layout, ui } from "../utils/styles";
 import { deleteItemFromId, updateItemStatus } from "../utils/storage";
 import * as Clipboard from 'expo-clipboard';

@@ -1,10 +1,9 @@
 import ListPresentation from "./list-presentation";
-import { ScrollView, Text, View } from "react-native";
-import { gap, layout, padding, ui } from "../../src/utils/styles";
+import { View } from "react-native";
+import { gap, layout, padding } from "../../src/utils/styles";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { getItemsFromListId, getListFromId } from "../../src/utils/storage";
-import SvgItem from "../../src/utils/svg-item";
 import HeaderListContainer from "../headers/header-list-container";
 import ListHero from "./list-hero";
 import ListAddItem from "./list-add-item";
