@@ -20,6 +20,12 @@ export async function insertInitialList() {
 
 
 // LISTAS
+
+export async function getAllList() {
+    const allRows = await db.getAllAsync('SELECT * FROM list');
+    return allRows;
+}
+
 export async function insertList(color, title, last_update) {
     const id = uuid.v4();
     db.runAsync("INSERT INTO list (id, color, title, last_update) VALUES (?, ?, ?, ?)", id, color, title, last_update);
