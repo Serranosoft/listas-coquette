@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash-listas.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FACCD6"
     },
     "scheme": "coquette-list",
     "ios": {
@@ -18,7 +18,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon-listas.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FACCD6"
       },
       "package": "com.paulaymanu113.coquettelist"
     },
