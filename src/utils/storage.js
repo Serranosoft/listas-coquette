@@ -1,7 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 import uuid from 'react-native-uuid';
 import { convertDateToString } from './date';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const db = SQLite.openDatabaseSync("coquette_list");
 export async function initDb() {
