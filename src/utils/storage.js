@@ -1,6 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 import uuid from 'react-native-uuid';
 import { convertDateToString } from './date';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const db = SQLite.openDatabaseSync("coquette_list");
 export async function initDb() {
@@ -79,4 +80,12 @@ export async function getItemsLength(listId) {
 export async function getItemsCheckedLength(listId, checked = true) {
     const x = await db.getFirstAsync('SELECT COUNT(*) FROM listItem WHERE checked = ? AND listId = ?', checked, listId);
     return x;
+}
+
+// AUX
+export async function dropAll() {
+    db.execAsync(`
+        DROP TABLE IF EXISTS list;
+        DROP TABLE IF EXISTS listItem;
+    `);
 }

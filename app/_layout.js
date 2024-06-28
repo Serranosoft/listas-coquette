@@ -20,9 +20,13 @@ export default function Layout() {
     }, [fontsLoaded])
 
     useEffect(() => {
-        initDb();
-        setInitialList();
+        init();
     }, []);
+
+    async function init() {
+        await initDb();
+        await setInitialList();
+    }
 
     async function setInitialList() {
         const value = await AsyncStorage.getItem("FIRST_LAUNCH_APP");
