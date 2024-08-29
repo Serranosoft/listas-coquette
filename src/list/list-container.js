@@ -7,6 +7,8 @@ import { getItemsFromListId, getListFromId } from "../../src/utils/storage";
 import HeaderListContainer from "../headers/header-list-container";
 import ListHero from "./list-hero";
 import ListAddItem from "./list-add-item";
+import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
+import { bannerId } from "../utils/constants";
 
 export default function ListContainer() {
 
@@ -38,6 +40,7 @@ export default function ListContainer() {
         <>
             <Stack.Screen options={{ header: () => <HeaderListContainer {...{ list, selectedItems, setSelectedItems, getChecklist }} /> }} />
             <View style={[layout.flex, layout.white]}>
+                <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />
                 {
                     list &&
                     <View style={[layout.flex, layout.alignCenter, padding.bigTop, gap.medium]}>

@@ -1,0 +1,1 @@
+export const bannerId = "ca-app-pub-3738413299329691/8084431891";
