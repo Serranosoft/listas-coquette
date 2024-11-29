@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SummaryHero from "./summary-hero";
 import { getAllList, getItemsCheckedLength } from "../utils/storage";
 import { Stack } from "expo-router";
 import SummaryChart from "./summary-chart";
 import { View } from "react-native";
 import { gap, layout, padding } from "../utils/styles";
-import HeaderSummaryContainer from "../headers/header-summary-container";
+import HeaderBackContainer from "../headers/header-back-container";
+import { LangContext } from "../utils/Context";
 
 export default function SummaryContainer() {
+
+    const { language } = useContext(LangContext);
 
     const [completed, setCompleted] = useState(0);
     const [pending, setPending] = useState(0);
@@ -47,7 +50,7 @@ export default function SummaryContainer() {
 
     return (
         <>
-            <Stack.Screen options={{ header: () => <HeaderSummaryContainer /> }} />
+            <Stack.Screen options={{ header: () => <HeaderBackContainer title={language.t("_summaryTitle")} /> }} />
             <View style={[layout.flex, gap.big, layout.white, padding.bigVertical]}>
                 <SummaryHero {...{ completed, pending }} />
                 <SummaryChart />

@@ -3,8 +3,12 @@ import { Text } from "react-native"
 import { TouchableOpacity } from "react-native"
 import { Modal } from "react-native"
 import { components, ui } from "../utils/styles"
+import { useContext } from "react"
+import { LangContext } from "../utils/Context"
 
 export default function DeleteModal({ setOpenDeleteModal, openDeleteModal, removeList }) {
+
+    const { language } = useContext(LangContext);
 
     function close() {
         setOpenDeleteModal(false);
@@ -28,11 +32,11 @@ export default function DeleteModal({ setOpenDeleteModal, openDeleteModal, remov
                             <Text style={[ui.h4, ui.black]}>&#10006;</Text>
                         </TouchableOpacity>
                         <View style={styles.content}>
-                            <Text style={[ui.h4, ui.black]}>¿Quieres eliminar esta(s) lista(s)?</Text>
-                            <Text style={ui.muted}>Se eliminará el listado de forma permanente junto con todos los recursos que contenga.</Text>
-                            <Text style={ui.muted}>Esta acción no se puede deshacer.</Text>
+                            <Text style={[ui.h4, ui.black]}>{language.t("_homeDeleteListTitle")}</Text>
+                            <Text style={ui.muted}>{language.t("_homeDeleteListText1")}</Text>
+                            <Text style={ui.muted}>{language.t("_homeDeleteListText2")}</Text>
                             <TouchableOpacity style={components.button} onPress={remove}>
-                                <Text style={[ui.h4, ui.center, ui.black]}>Eliminar lista(s)</Text>
+                                <Text style={[ui.h4, ui.center, ui.black]}>{language.t("_homeDeleteListButton")}</Text>
                             </TouchableOpacity> 
                         </View>
                     </View>

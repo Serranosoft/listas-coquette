@@ -1,20 +1,51 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { components, header, ui } from "../utils/styles";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Path, Svg } from "react-native-svg";
+import { useContext, useState } from "react";
+import { LangContext } from "../utils/Context";
+import { Menu, MenuDivider, MenuItem } from "react-native-material-menu";
 
-export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDeleteModal }) {
+export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDeleteModal, visible, hideMenu, showMenu }) {
+
+
+    const { language } = useContext(LangContext);
 
     return (
         <View style={components.header}>
 
-            <Link href="/summary" asChild>
+            {/* <Link href="/summary" asChild>
                 <TouchableOpacity>
-                    <Image style={header.img} source={require("../../assets/settings.png")} />
+                    <Image source={require("../../assets/more.png")} style={header.img} />
                 </TouchableOpacity>
-            </Link>
+            </Link> */}
 
-            <Text style={[ui.h4, ui.black]}>Mis listas</Text>
+            <Menu
+                visible={visible}
+                onRequestClose={hideMenu}
+                anchor={(
+                    <TouchableWithoutFeedback onPress={showMenu}>
+                        <Image style={header.img} source={require("../../assets/more.png")} />
+                    </TouchableWithoutFeedback>
+                )}>
+                <MenuItem onPress={() => router.push("summary")}>
+                    <View style={components.row}>
+                        <Image style={header.img} source={require("../../assets/activity.png")} />
+                        <Text>{language.t("_headerDropdownOption2")}</Text>
+                    </View>
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem onPress={() => router.push("settings")}>
+                    <View style={components.row}>
+                        <Image style={header.img} source={require("../../assets/settings.png")} />
+                        <Text>{language.t("_headerDropdownOption1")}</Text>
+                    </View>
+                </MenuItem>
+            </Menu>
+
+
+
+            <Text style={[ui.h4, ui.black]}>{language.t("_homeTitle")}</Text>
             {
                 selectedLists.length > 0 ?
                     <TouchableOpacity onPress={() => setOpenDeleteModal(true)}>

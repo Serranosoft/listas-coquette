@@ -1,8 +1,11 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { colors, margin, ui } from "../../src/utils/styles";
 import ListItem from "./list-item";
+import { useContext } from "react";
+import { LangContext } from "../utils/Context";
 
 export default function ListPresentation({ items, selectedItems, setSelectedItems, getChecklist }) {
+    const { language } = useContext(LangContext);
 
     return (
 
@@ -14,7 +17,7 @@ export default function ListPresentation({ items, selectedItems, setSelectedItem
                             return <ListItem key={item.id} {...{ item, selectedItems, setSelectedItems, getChecklist }} />
                         })
                         :
-                        <Text style={[ui.muted, ui.center, margin.bigTop]}>No hay registros añadidos</Text>
+                        <Text style={[ui.muted, ui.center, margin.bigTop]}>{language.t("_listPresentationNoItems")}</Text>
                 }
             </ScrollView>
         </View>

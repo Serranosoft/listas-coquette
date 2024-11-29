@@ -3,13 +3,15 @@ import { Text } from "react-native"
 import { TouchableOpacity } from "react-native"
 import { Modal } from "react-native"
 import { colors, components, layout, ui } from "../utils/styles"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import Animated, { ZoomIn } from 'react-native-reanimated';
 import { updateItem } from "../utils/storage"
 import { convertDateToString } from "../utils/date"
+import { LangContext } from "../utils/Context"
 
 
 export default function ItemModal({ openItemModal, setOpenItemModal, item, onSave }) {
+    const { language } = useContext(LangContext);
 
     const [value, setValue] = useState(item.value || "");
 
@@ -41,7 +43,7 @@ export default function ItemModal({ openItemModal, setOpenItemModal, item, onSav
                         </TouchableOpacity>
                         <View style={styles.content}>
                             <Animated.View entering={ZoomIn.delay(50)}>
-                                <Text style={[ui.h3, ui.black, [ui.center]]}>Editar registro</Text>
+                                <Text style={[ui.h3, ui.black, [ui.center]]}>{language.t("_listEditItemTitle")}</Text>
                             </Animated.View>
                             <Animated.View entering={ZoomIn.delay(125)} style={[layout.w100]}>
                                 <TextInput
@@ -53,7 +55,7 @@ export default function ItemModal({ openItemModal, setOpenItemModal, item, onSav
 
                             <Animated.View style={[components.button, layout.w100]} entering={ZoomIn.delay(175)}>
                                 <TouchableOpacity onPress={save}>
-                                    <Text style={[ui.h4, ui.center, ui.black]}>Cambiar valor</Text>
+                                    <Text style={[ui.h4, ui.center, ui.black]}>{language.t("_listEditItemAcceptButton")}</Text>
                                 </TouchableOpacity>
                             </Animated.View>
                         </View>

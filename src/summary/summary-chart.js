@@ -1,12 +1,14 @@
 import { Dimensions, Text, ToastAndroid, View } from "react-native"
 import { layout, padding, ui } from "../utils/styles"
 import { ContributionGraph } from "react-native-chart-kit";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAllList, getItemsFromListId } from "../utils/storage";
 import { convertStringDateToDateObject, parseDateToString } from "../utils/date";
+import { LangContext } from "../utils/Context";
 
 export default function SummaryChart() {
 
+    const { language } = useContext(LangContext);
     const [changes, setChanges] = useState([]);
 
     useEffect(() => {
@@ -50,8 +52,8 @@ export default function SummaryChart() {
         <View style={[layout.flex, padding.bigVertical]}>
             {changes.length > 0 &&
                 <>
-                    <Text style={[ui.h4, ui.black, padding.mediumHorizontal, ui.center]}>Tareas creadas cada día</Text>
-                    <Text style={[ui.muted, ui.center, padding.mediumHorizontal]}>Pulsa en la actividad para ver mas detalle</Text>
+                    <Text style={[ui.h4, ui.black, padding.mediumHorizontal, ui.center]}>{language.t("_summaryChartTitle")}</Text>
+                    <Text style={[ui.muted, ui.center, padding.mediumHorizontal]}>{language.t("_summaryChartSubtitle")}</Text>
 
                     <ContributionGraph
                         values={changes}

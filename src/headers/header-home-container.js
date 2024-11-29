@@ -9,6 +9,10 @@ export default function HeaderHomeContainer({ setSelectedLists, selectedLists, f
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [openListModal, setOpenListModal] = useState(false);
 
+    const [visible, setVisible] = useState(false);
+    const hideMenu = () => setVisible(false);
+    const showMenu = () => setVisible(true);
+
     function removeList() {
         selectedLists.forEach(list => deleteListFromId(list));
         setSelectedLists([]);
@@ -22,7 +26,7 @@ export default function HeaderHomeContainer({ setSelectedLists, selectedLists, f
 
     return (
         <>
-            <HeaderHome {...{ setOpenListModal, selectedLists, setOpenDeleteModal }} />
+            <HeaderHome {...{ setOpenListModal, selectedLists, setOpenDeleteModal, visible, hideMenu, showMenu }} />
             <ListModal {...{ setOpenListModal, openListModal }} />
             <DeleteModal {...{ setOpenDeleteModal, openDeleteModal, removeList }} />
         </>

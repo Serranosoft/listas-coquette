@@ -3,15 +3,18 @@ import { Text } from "react-native"
 import { TouchableOpacity } from "react-native"
 import { Modal } from "react-native"
 import { colors, components, gap, layout, ui } from "../utils/styles"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import ColorPicker, { HueSlider, Panel1 } from 'reanimated-color-picker';
 import SvgItem from "../utils/svg-item"
 import { ColorsHandler } from "../utils/colors-handler"
 import Animated, { useSharedValue, withSpring, useAnimatedStyle, ZoomIn } from 'react-native-reanimated';
 import { insertList, updateList } from "../utils/storage"
 import { convertDateToString } from "../utils/date"
+import { LangContext } from "../utils/Context"
 
 export default function ListModal({ setOpenListModal, openListModal, list, isEdit = false, onSave }) {
+
+    const { language } = useContext(LangContext);
 
     const [color, setColor] = useState(list ? list.color : "rgb(85, 172, 238)")
     const [title, setTitle] = useState(list ? list.title : "");
@@ -83,7 +86,7 @@ export default function ListModal({ setOpenListModal, openListModal, list, isEdi
                                 </Animated.View>
 
                                 <Animated.View entering={ZoomIn.delay(125)}>
-                                    <Text style={[ui.h3, ui.black]}>Personaliza tu lista</Text>
+                                    <Text style={[ui.h3, ui.black, ui.center]}>{language.t("_listModalTitle")}</Text>
                                 </Animated.View>
 
 
@@ -92,7 +95,7 @@ export default function ListModal({ setOpenListModal, openListModal, list, isEdi
                                         style={styles.input}
                                         onChangeText={setTitle}
                                         value={title}
-                                        placeholder="Nombre de tu lista"
+                                        placeholder={language.t("_listModalNamePlaceholder")}
                                     />
                                 </Animated.View>
 
@@ -116,7 +119,7 @@ export default function ListModal({ setOpenListModal, openListModal, list, isEdi
                                 <Animated.View style={[components.button, layout.w100, { backgroundColor: color }]} entering={ZoomIn.delay(425)}>
                                     <Animated.View style={animatedStyle}>
                                         <TouchableOpacity onPress={save}>
-                                            <Text style={[ui.h4, ui.center, { color: isReadable ? "black" : "white" }]}>{isEdit ? "Editar lista" : "Crear lista"}</Text>
+                                            <Text style={[ui.h4, ui.center, { color: isReadable ? "black" : "white" }]}>{isEdit ? language.t("_listModalEditButton") : language.t("_listModalAddButton")}</Text>
                                         </TouchableOpacity>
                                     </Animated.View>
                                 </Animated.View>

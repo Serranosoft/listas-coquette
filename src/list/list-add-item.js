@@ -1,11 +1,13 @@
 import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { colors, ui } from "../utils/styles";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { insertItemToListId } from "../utils/storage";
 import { convertDateToString } from "../utils/date";
+import { LangContext } from "../utils/Context";
 
 export default function ListAddItem({ getChecklist, list }) {
 
+    const { language } = useContext(LangContext);
     const [value, setValue] = useState("");
     const input = useRef();
 
@@ -30,7 +32,7 @@ export default function ListAddItem({ getChecklist, list }) {
                 style={[styles.input, ui.muted]}
                 onChangeText={setValue}
                 value={value}
-                placeholder="Añade un nuevo recurso"
+                placeholder={language.t("_listAddItemInputPlaceholder")}
                 placeholderTextColor={"#858585"}
             />
             <TouchableOpacity onPress={add}>
