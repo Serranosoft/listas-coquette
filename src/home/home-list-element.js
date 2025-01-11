@@ -2,13 +2,15 @@ import { Text, TouchableOpacity } from "react-native";
 import { colors, layout, margin, padding, ui } from "../utils/styles";
 import SvgItem from "../utils/svg-item";
 import {  router, useFocusEffect } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { getItemsCheckedLength, getItemsLength } from "../utils/storage";
+import { AdsContext } from "../utils/Context";
 
 export default function HomeListElement({ list, selectedLists, setSelectedLists }) {
 
     const [selected, setSelected] = useState(false);
     const [progress, setProgress] = useState(null);
+    const { setAdTrigger } = useContext(AdsContext);
 
     async function getProgress() {
         const totalProgress = await getItemsLength(list.id);
@@ -19,6 +21,7 @@ export default function HomeListElement({ list, selectedLists, setSelectedLists 
     }
 
     function navigate() {
+        setAdTrigger((adTrigger) => adTrigger + 1);
         router.navigate({ pathname: "/list", params: { id: list.id } });
     }
 

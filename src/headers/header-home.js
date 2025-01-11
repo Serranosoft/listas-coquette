@@ -3,13 +3,14 @@ import { components, header, ui } from "../utils/styles";
 import { Link, router } from "expo-router";
 import { Path, Svg } from "react-native-svg";
 import { useContext, useState } from "react";
-import { LangContext } from "../utils/Context";
+import { AdsContext, LangContext } from "../utils/Context";
 import { Menu, MenuDivider, MenuItem } from "react-native-material-menu";
 
 export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDeleteModal, visible, hideMenu, showMenu }) {
 
 
     const { language } = useContext(LangContext);
+    const { setAdTrigger } = useContext(AdsContext);
 
     return (
         <View style={components.header}>
@@ -28,14 +29,20 @@ export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDel
                         <Image style={header.img} source={require("../../assets/more.png")} />
                     </TouchableWithoutFeedback>
                 )}>
-                <MenuItem onPress={() => router.push("summary")}>
+                <MenuItem onPress={() => {
+                    setAdTrigger((adTrigger) => adTrigger + 1);
+                    router.push("summary");
+                }}>
                     <View style={components.row}>
                         <Image style={header.img} source={require("../../assets/activity.png")} />
                         <Text>{language.t("_headerDropdownOption2")}</Text>
                     </View>
                 </MenuItem>
                 <MenuDivider />
-                <MenuItem onPress={() => router.push("settings")}>
+                <MenuItem onPress={() => {
+                    setAdTrigger((adTrigger) => adTrigger + 1);
+                    router.push("settings");
+                }}>
                     <View style={components.row}>
                         <Image style={header.img} source={require("../../assets/settings.png")} />
                         <Text>{language.t("_headerDropdownOption1")}</Text>

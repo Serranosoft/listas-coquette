@@ -5,10 +5,11 @@ import { useFonts } from "expo-font";
 import { colors } from "../src/utils/styles";
 import { initDb, insertInitialList } from "../src/utils/storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { LangContext } from "../src/utils/Context";
+import { AdsContext, LangContext } from "../src/utils/Context";
 import { getLocales } from "expo-localization";
 import { I18n } from 'i18n-js'
 import { translations } from "../src/utils/localizations";
+import AdsHandler from "../src/components/AdsHandler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -47,18 +48,33 @@ export default function Layout() {
     i18n.enableFallback = true
     i18n.defaultLocale = "es";
 
+    // Gestión de anuncios
+    const [adTrigger, setAdTrigger] = useState(0);
+    const [showOpenAd, setShowOpenAd] = useState(true);
+    const adsHandlerRef = createRef();
+
+    useEffect(() => {
+        if (adTrigger > 4) {
+            adsHandlerRef.current.showIntersitialAd();
+            setAdTrigger(0);
+        }
+    }, [adTrigger])
+
     // Esperar hasta que las fuentes se carguen
     if (!fontsLoaded) {
         return null;
     }
 
     return (
-        <LangContext.Provider value={{ setLanguage: setLanguage, language: i18n }}>
-            <View style={styles.container}>
-                <Stack />
-                <StatusBar style="light" />
-            </View>
-        </LangContext.Provider>
+        <AdsContext.Provider value={{ setAdTrigger: setAdTrigger }}>
+            <LangContext.Provider value={{ setLanguage: setLanguage, language: i18n }}>
+                <AdsHandler ref={adsHandlerRef} showOpenAd={showOpenAd} setShowOpenAd={setShowOpenAd} />
+                <View style={styles.container}>
+                    <Stack />
+                    <StatusBar style="light" />
+                </View>
+            </LangContext.Provider>
+        </AdsContext.Provider>
     )
 }
 const styles = StyleSheet.create({
