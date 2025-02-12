@@ -1,6 +1,6 @@
 import { SplashScreen, Stack } from "expo-router";
 import { View, StatusBar, StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
+import { createRef, useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import { colors } from "../src/utils/styles";
 import { initDb, insertInitialList } from "../src/utils/storage";
