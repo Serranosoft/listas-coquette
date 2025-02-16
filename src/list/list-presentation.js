@@ -4,7 +4,7 @@ import ListItem from "./list-item";
 import { useContext } from "react";
 import { LangContext } from "../utils/Context";
 
-export default function ListPresentation({ items, selectedItems, setSelectedItems, getChecklist }) {
+export default function ListPresentation({ items, selectedItems, setSelectedItems, getChecklist, checkbox }) {
     const { language } = useContext(LangContext);
 
     return (
@@ -14,7 +14,7 @@ export default function ListPresentation({ items, selectedItems, setSelectedItem
                 {
                     items.length > 0 ?
                         items.map((item) => {
-                            return <ListItem key={item.id} {...{ item, selectedItems, setSelectedItems, getChecklist }} />
+                            return <ListItem key={item.id} {...{ item, selectedItems, setSelectedItems, getChecklist, checkbox }} />
                         })
                         :
                         <Text style={[ui.muted, ui.center, margin.bigTop]}>{language.t("_listPresentationNoItems")}</Text>

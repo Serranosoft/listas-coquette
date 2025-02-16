@@ -5,8 +5,9 @@ import { colors, gap, layout, ui } from "../utils/styles";
 import { deleteItemFromId, updateItemStatus } from "../utils/storage";
 import * as Clipboard from 'expo-clipboard';
 import ItemModal from "../modals/item-modal";
+import HeartIcon from "../utils/icons/heart-icon";
 
-export default function ListItem({ item, selectedItems, setSelectedItems, getChecklist }) {
+export default function ListItem({ item, selectedItems, setSelectedItems, getChecklist, checkbox }) {
 
     const [checked, setChecked] = useState(false);
     const [selected, setSelected] = useState(false);
@@ -69,23 +70,34 @@ export default function ListItem({ item, selectedItems, setSelectedItems, getChe
 
     return (
         <>
-            <TouchableOpacity style={[styles.wrapper, selected && { backgroundColor: colors.light, borderBottomColor: colors.gray}]} onPress={onPress} onLongPress={onLongPress}>
-                <View style={[layout.row, layout.alignCenter, gap.big]}>
+            <View style={[styles.wrapper, selected && { backgroundColor: colors.light, borderBottomColor: colors.gray }]} >
+                <TouchableOpacity style={[layout.row, layout.alignCenter, gap.big]} onPress={onPress} onLongPress={onLongPress}>
                     <TouchableOpacity onPress={removeItem}>
                         <Text style={[ui.muted]}>x</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={openEditItemModal}>
-                        <Text style={[ui.h4, ui.black, checked && { textDecorationLine: 'line-through', textDecorationStyle: 'solid', color: colors.muted } ]}>{item.value}</Text>
+                        <Text style={[ui.h4, ui.black, checked && { textDecorationLine: 'line-through', textDecorationStyle: 'solid', color: colors.muted }]}>{item.value}</Text>
                     </TouchableOpacity>
-                </View>
-                <Checkbox
-                    style={styles.checkbox}
-                    value={checked}
-                    onValueChange={handleChange}
-                    color={checked ? colors.dark : undefined}
-                />
-            </TouchableOpacity>
-            <ItemModal {...{ openItemModal, setOpenItemModal, item, onSave: getChecklist }}/>
+                </TouchableOpacity>
+                {
+                    checkbox == null ||
+                    checkbox == "standard" ?
+                        <Checkbox
+                            style={styles.checkbox}
+                            value={checked}
+                            onValueChange={handleChange}
+                            color={checked ? colors.dark : undefined}
+                        />
+                        :
+                    checkbox == "heart" &&
+                        <HeartIcon
+                            style={styles.checkbox}
+                            checked={checked}
+                            onPress={() => handleChange()}
+                        />
+                }
+            </View>
+            <ItemModal {...{ openItemModal, setOpenItemModal, item, onSave: getChecklist }} />
         </>
     )
 }
@@ -106,6 +118,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         height: 28,
         width: 28,
+        zIndex: 1
     }
 
 })

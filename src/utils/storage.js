@@ -18,6 +18,24 @@ export async function insertInitialList() {
     db.runAsync("INSERT INTO listItem (id, listId, value, checked, last_update) VALUES (?, ?, ?, ?, ?)", listItemId, listId, "Magdalenas", false, convertDateToString(new Date()));
 }
 
+// Actualizador de la tablas
+export async function updateDatabase() {
+    addCheckboxColumn();
+};
+
+async function addCheckboxColumn() {
+    try {
+        const result = await db.getAllAsync("PRAGMA table_info(list);");
+        const columns = result.map(row => row.name);
+    
+        if (!columns.includes('checkbox')) {
+            await db.execAsync("ALTER TABLE List ADD COLUMN checkbox TEXT");
+        }
+    } catch (error) {
+        console.error("Error al verificar/agregar la columna:", error);
+    }
+}
+
 
 // LISTAS
 

@@ -3,7 +3,7 @@ import { View, StatusBar, StyleSheet } from "react-native";
 import { createRef, useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import { colors } from "../src/utils/styles";
-import { initDb, insertInitialList } from "../src/utils/storage";
+import { initDb, insertInitialList, updateDatabase } from "../src/utils/storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AdsContext, LangContext } from "../src/utils/Context";
 import { getLocales } from "expo-localization";
@@ -30,6 +30,7 @@ export default function Layout() {
 
     async function init() {
         await initDb();
+        await updateDatabase();
         await setInitialList();
     }
 
@@ -39,6 +40,10 @@ export default function Layout() {
             await insertInitialList();
             await AsyncStorage.setItem("FIRST_LAUNCH_APP", "true");
         }
+    }
+
+    async function checkDatabase() {
+        const value = await AsyncStorage.getItem("FIRST_LAUNCH_APP");
     }
 
     // Idioma
