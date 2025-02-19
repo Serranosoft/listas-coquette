@@ -1,14 +1,15 @@
-import { Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import SvgItem from "../utils/svg-item";
-import { components, header, padding, ui } from "../utils/styles";
+import { colors, padding, ui } from "../utils/styles";
 import ListModal from "../modals/list-modal";
 import { Menu, MenuDivider, MenuItem } from "react-native-material-menu";
 import { useState } from "react";
 import EditIcon from "../utils/icons/edit-icon";
 import HeartIcon from "../utils/icons/heart-icon";
+import Checkbox from "expo-checkbox";
+import { updateListCheckbox } from "../utils/storage";
 
 export default function ListHero({ list, openListModal, setOpenListModal, getList }) {
-    console.log(list);
 
     const [visible, setVisible] = useState(false);
     const hideMenu = () => setVisible(false);
@@ -33,29 +34,35 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                                 />
                             </TouchableOpacity>
                         )}>
-                        <MenuItem style={{ borderWidth: 3, padding: 0}}>
-                            <View style={{ flexDirection: "row", padding:0, borderWidth: 3,alignItems: "center", justifyContent: "space-between", gap: 6, width: "100%", flex: 1,}}>
-                                <TouchableOpacity style={styles.iconWrapper}>
-                                    <HeartIcon
-                                        style={styles.checkbox}
-                                        decoration={true}
-                                    />
-                                </TouchableOpacity>
-                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Corazón</Text>
-                            </View>
-                        </MenuItem>
-                        <MenuDivider />
-                        <MenuItem>
-                            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 6, width: "100%"}}>
-                                <TouchableOpacity style={styles.iconWrapper}>
-                                    <HeartIcon
-                                        style={styles.checkbox}
-                                        decoration={true}
-                                    />
-                                </TouchableOpacity>
+                        <MenuItem onPress={() => {
+                            updateListCheckbox(list.id, "standard");
+                            getList();
+                            hideMenu();
+                        }}>
+                            <View style={styles.menuItemWrapper}>
+                                <Checkbox
+                                    style={styles.checkbox}
+                                    value={true}
+                                    color={colors.dark}
+                                />
                                 <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Estándar</Text>
                             </View>
                         </MenuItem>
+                        <MenuDivider />
+                        <MenuItem onPress={() => {
+                            updateListCheckbox(list.id, "heart");
+                            getList();
+                            hideMenu();
+                        }}>
+                            <View style={styles.menuItemWrapper}>
+                                <HeartIcon
+                                    styles={styles.checkbox}
+                                    checked={true}
+                                />
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Corazón</Text>
+                            </View>
+                        </MenuItem>
+
 
                     </Menu>
                 </View>
@@ -80,8 +87,21 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
 
+    menuItemWrapper: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8
+    },
+
     actions: {
         justifyContent: "space-between",
+    },
+
+    checkbox: {
+        borderRadius: 100,
+        height: 28,
+        width: 28,
+        zIndex: 1
     },
 
     img: {

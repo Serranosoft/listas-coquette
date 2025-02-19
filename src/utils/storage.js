@@ -55,6 +55,10 @@ export async function updateList(id, color, title, last_update) {
     db.runAsync("UPDATE list SET last_update = ? WHERE id = ?", last_update, id);
 }
 
+export async function updateListCheckbox(id, checkbox) {
+    db.runAsync("UPDATE list SET checkbox = ? WHERE id = ?", checkbox, id);
+}
+
 export async function deleteListFromId(id) {
     db.runAsync("DELETE FROM list WHERE id = ?", id);
 }

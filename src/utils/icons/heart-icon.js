@@ -2,11 +2,11 @@ import * as React from "react"
 import Svg, { Path } from "react-native-svg"
 import { colors } from "../styles"
 
-function HeartIcon({styles, checked, onPress, decoration}) {
+function HeartIcon({styles, checked, onPress, decoration, width, height}) {
   return (
     <Svg
-      width="28px"
-      height="28px"
+      width={width || "28px"}
+      height={height || "28px"}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
