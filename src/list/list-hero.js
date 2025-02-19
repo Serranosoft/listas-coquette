@@ -8,6 +8,11 @@ import EditIcon from "../utils/icons/edit-icon";
 import HeartIcon from "../utils/icons/heart-icon";
 import Checkbox from "expo-checkbox";
 import { updateListCheckbox } from "../utils/storage";
+import FlagIcon from "../utils/icons/flag-icon";
+import StarIcon from "../utils/icons/star-icon";
+import FaceIcon from "../utils/icons/face-icon";
+import BulbIcon from "../utils/icons/bulb-icon";
+import ChooseIcon from "../utils/icons/choose-icon";
 
 export default function ListHero({ list, openListModal, setOpenListModal, getList }) {
 
@@ -28,10 +33,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                         onRequestClose={hideMenu}
                         anchor={(
                             <TouchableOpacity onPress={showMenu} style={styles.iconWrapper}>
-                                <HeartIcon
-                                    style={styles.checkbox}
-                                    decoration={true}
-                                />
+                                <ChooseIcon width={28} height={28} styles={styles.img} />
                             </TouchableOpacity>
                         )}>
                         <MenuItem onPress={() => {
@@ -60,6 +62,62 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                                     checked={true}
                                 />
                                 <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Corazón</Text>
+                            </View>
+                        </MenuItem>
+                        <MenuDivider />
+                        <MenuItem onPress={() => {
+                            updateListCheckbox(list.id, "flag");
+                            getList();
+                            hideMenu();
+                        }}>
+                            <View style={styles.menuItemWrapper}>
+                                <FlagIcon
+                                    styles={styles.checkbox}
+                                    checked={true}
+                                />
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Bandera</Text>
+                            </View>
+                        </MenuItem>
+                        <MenuDivider />
+                        <MenuItem onPress={() => {
+                            updateListCheckbox(list.id, "star");
+                            getList();
+                            hideMenu();
+                        }}>
+                            <View style={styles.menuItemWrapper}>
+                                <StarIcon
+                                    styles={styles.checkbox}
+                                    checked={true}
+                                />
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Estrella</Text>
+                            </View>
+                        </MenuItem>
+                        <MenuDivider />
+                        <MenuItem onPress={() => {
+                            updateListCheckbox(list.id, "face");
+                            getList();
+                            hideMenu();
+                        }}>
+                            <View style={styles.menuItemWrapper}>
+                                <FaceIcon
+                                    styles={styles.checkbox}
+                                    checked={true}
+                                />
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Cara</Text>
+                            </View>
+                        </MenuItem>
+                        <MenuDivider />
+                        <MenuItem onPress={() => {
+                            updateListCheckbox(list.id, "bulb");
+                            getList();
+                            hideMenu();
+                        }}>
+                            <View style={styles.menuItemWrapper}>
+                                <BulbIcon
+                                    styles={styles.checkbox}
+                                    checked={true}
+                                />
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Bombilla</Text>
                             </View>
                         </MenuItem>
 

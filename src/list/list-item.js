@@ -6,6 +6,10 @@ import { deleteItemFromId, updateItemStatus } from "../utils/storage";
 import * as Clipboard from 'expo-clipboard';
 import ItemModal from "../modals/item-modal";
 import HeartIcon from "../utils/icons/heart-icon";
+import FlagIcon from "../utils/icons/flag-icon";
+import StarIcon from "../utils/icons/star-icon";
+import FaceIcon from "../utils/icons/face-icon";
+import BulbIcon from "../utils/icons/bulb-icon";
 
 export default function ListItem({ item, selectedItems, setSelectedItems, getChecklist, checkbox }) {
 
@@ -89,12 +93,41 @@ export default function ListItem({ item, selectedItems, setSelectedItems, getChe
                             color={checked ? colors.dark : undefined}
                         />
                         :
-                    checkbox == "heart" &&
+                    checkbox == "heart" ?
                         <HeartIcon
                             style={styles.checkbox}
                             checked={checked}
                             onPress={() => handleChange()}
                         />
+                        :
+                    checkbox == "flag" ?
+                        <FlagIcon
+                            style={styles.checkbox}
+                            checked={checked}
+                            onPress={() => handleChange()}
+                        />
+                        :
+                    checkbox == "star" ?
+                        <StarIcon
+                            style={styles.checkbox}
+                            checked={checked}
+                            onPress={() => handleChange()}
+                        />
+                        :
+                    checkbox == "face" ?
+                        <FaceIcon
+                            style={styles.checkbox}
+                            checked={checked}
+                            onPress={() => handleChange()}
+                        />
+                        :
+                    checkbox == "bulb" &&
+                        <BulbIcon
+                            style={styles.checkbox}
+                            checked={checked}
+                            onPress={() => handleChange()}
+                        />
+
                 }
             </View>
             <ItemModal {...{ openItemModal, setOpenItemModal, item, onSave: getChecklist }} />
