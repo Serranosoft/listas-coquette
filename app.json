@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/icon-listas.png",
         "backgroundColor": "#FACCD6"
       },
-      "versionCode": 6,
+      "versionCode": 7,
       "package": "com.paulaymanu113.coquettelist"
     },
     "web": {
