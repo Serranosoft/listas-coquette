@@ -20,6 +20,12 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
     const hideMenu = () => setVisible(false);
     const showMenu = () => setVisible(true);
 
+    function updateCheckbox(icon) {
+        updateListCheckbox(list.id, icon);
+        getList();
+        hideMenu();
+    }
+
     return (
         <>
             <View style={{ flexDirection: "row" }}>
@@ -36,11 +42,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                                 <ChooseIcon width={28} height={28} styles={styles.img} />
                             </TouchableOpacity>
                         )}>
-                        <MenuItem onPress={() => {
-                            updateListCheckbox(list.id, "standard");
-                            getList();
-                            hideMenu();
-                        }}>
+                        <MenuItem onPress={() => updateCheckbox("standard")}>
                             <View style={styles.menuItemWrapper}>
                                 <Checkbox
                                     style={styles.checkbox}
@@ -51,11 +53,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                             </View>
                         </MenuItem>
                         <MenuDivider />
-                        <MenuItem onPress={() => {
-                            updateListCheckbox(list.id, "heart");
-                            getList();
-                            hideMenu();
-                        }}>
+                        <MenuItem onPress={() => updateCheckbox("heart")}>
                             <View style={styles.menuItemWrapper}>
                                 <HeartIcon
                                     styles={styles.checkbox}
@@ -65,11 +63,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                             </View>
                         </MenuItem>
                         <MenuDivider />
-                        <MenuItem onPress={() => {
-                            updateListCheckbox(list.id, "flag");
-                            getList();
-                            hideMenu();
-                        }}>
+                        <MenuItem onPress={() => updateCheckbox("flag")}>
                             <View style={styles.menuItemWrapper}>
                                 <FlagIcon
                                     styles={styles.checkbox}
@@ -79,11 +73,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                             </View>
                         </MenuItem>
                         <MenuDivider />
-                        <MenuItem onPress={() => {
-                            updateListCheckbox(list.id, "star");
-                            getList();
-                            hideMenu();
-                        }}>
+                        <MenuItem onPress={() => updateCheckbox("star")}>
                             <View style={styles.menuItemWrapper}>
                                 <StarIcon
                                     styles={styles.checkbox}
@@ -93,11 +83,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                             </View>
                         </MenuItem>
                         <MenuDivider />
-                        <MenuItem onPress={() => {
-                            updateListCheckbox(list.id, "face");
-                            getList();
-                            hideMenu();
-                        }}>
+                        <MenuItem onPress={() => updateCheckbox("face")}>
                             <View style={styles.menuItemWrapper}>
                                 <FaceIcon
                                     styles={styles.checkbox}
@@ -107,11 +93,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                             </View>
                         </MenuItem>
                         <MenuDivider />
-                        <MenuItem onPress={() => {
-                            updateListCheckbox(list.id, "bulb");
-                            getList();
-                            hideMenu();
-                        }}>
+                        <MenuItem onPress={() => updateCheckbox("bulb")}>
                             <View style={styles.menuItemWrapper}>
                                 <BulbIcon
                                     styles={styles.checkbox}
