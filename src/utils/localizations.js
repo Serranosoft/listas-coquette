@@ -38,6 +38,14 @@ const translations = {
         _settingsTitle: "Configuración",
         _settingsApp: "Ajustes de la aplicación",
         _settingsLang: "Idioma de la aplicación",
+
+        // Checkbox personalizado
+        _customCheckbox1: "Estándar",
+        _customCheckbox2: "Corazón",
+        _customCheckbox3: "Bandera",
+        _customCheckbox4: "Estrella",
+        _customCheckbox5: "Cara",
+        _customCheckbox6: "Bombilla"
     },
     en: {
         _homeTitle: "My lists",
@@ -78,6 +86,13 @@ const translations = {
         _settingsTitle: "Settings",
         _settingsApp: "Application settings",
         _settingsLang: "Application language",
+
+        _customCheckbox1: "Standard",
+        _customCheckbox2: "Heart",
+        _customCheckbox3: "Flag",
+        _customCheckbox4: "Star",
+        _customCheckbox5: "Face",
+        _customCheckbox6: "Bulb"
     },
     de: {
         _homeTitle: "Meine Listen",
@@ -118,6 +133,13 @@ const translations = {
         _settingsTitle: "Einstellungen",
         _settingsApp: "Anwendungseinstellungen",
         _settingsLang: "Anwendungssprache",
+
+        _customCheckbox1: "Standard",
+        _customCheckbox2: "Herz",
+        _customCheckbox3: "Flagge",
+        _customCheckbox4: "Stern",
+        _customCheckbox5: "Gesicht",
+        _customCheckbox6: "Glühbirne"
     },
     ar: {
         _homeTitle: "قوائمي",
@@ -158,6 +180,13 @@ const translations = {
         _settingsTitle: "الإعدادات",
         _settingsApp: "إعدادات التطبيق",
         _settingsLang: "لغة التطبيق",
+
+        _customCheckbox1: "قياسي",
+        _customCheckbox2: "قلب",
+        _customCheckbox3: "علم",
+        _customCheckbox4: "نجمة",
+        _customCheckbox5: "وجه",
+        _customCheckbox6: "مصباح"
     },
     hi: {
         _homeTitle: "मेरी सूचियां",
@@ -198,6 +227,13 @@ const translations = {
         _settingsTitle: "सेटिंग्स",
         _settingsApp: "ऐप सेटिंग्स",
         _settingsLang: "ऐप की भाषा",
+
+        _customCheckbox1: "मानक",
+        _customCheckbox2: "दिल",
+        _customCheckbox3: "झंडा",
+        _customCheckbox4: "तारा",
+        _customCheckbox5: "चेहरा",
+        _customCheckbox6: "बल्ब"
     },
     fr: {
         _homeTitle: "Mes listes",
@@ -238,6 +274,13 @@ const translations = {
         _settingsTitle: "Paramètres",
         _settingsApp: "Paramètres de l'application",
         _settingsLang: "Langue de l'application",
+
+        _customCheckbox1: "Standard",
+        _customCheckbox2: "Cœur",
+        _customCheckbox3: "Drapeau",
+        _customCheckbox4: "Étoile",
+        _customCheckbox5: "Visage",
+        _customCheckbox6: "Ampoule"
     },
     it: {
         _homeTitle: "Le mie liste",
@@ -278,6 +321,13 @@ const translations = {
         _settingsTitle: "Impostazioni",
         _settingsApp: "Impostazioni dell'app",
         _settingsLang: "Lingua dell'app",
+
+        _customCheckbox1: "Standard",
+        _customCheckbox2: "Cuore",
+        _customCheckbox3: "Bandiera",
+        _customCheckbox4: "Stella",
+        _customCheckbox5: "Faccia",
+        _customCheckbox6: "Lampadina"
     },
 };
 

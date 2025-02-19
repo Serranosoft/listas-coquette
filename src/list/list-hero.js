@@ -3,7 +3,7 @@ import SvgItem from "../utils/svg-item";
 import { colors, padding, ui } from "../utils/styles";
 import ListModal from "../modals/list-modal";
 import { Menu, MenuDivider, MenuItem } from "react-native-material-menu";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import EditIcon from "../utils/icons/edit-icon";
 import HeartIcon from "../utils/icons/heart-icon";
 import Checkbox from "expo-checkbox";
@@ -13,12 +13,15 @@ import StarIcon from "../utils/icons/star-icon";
 import FaceIcon from "../utils/icons/face-icon";
 import BulbIcon from "../utils/icons/bulb-icon";
 import ChooseIcon from "../utils/icons/choose-icon";
+import { LangContext } from "../utils/Context";
 
 export default function ListHero({ list, openListModal, setOpenListModal, getList }) {
 
     const [visible, setVisible] = useState(false);
     const hideMenu = () => setVisible(false);
     const showMenu = () => setVisible(true);
+    const { language } = useContext(LangContext);
+    
 
     function updateCheckbox(icon) {
         updateListCheckbox(list.id, icon);
@@ -49,7 +52,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                                     value={true}
                                     color={colors.dark}
                                 />
-                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Estándar</Text>
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>{language.t("_customCheckbox1")}</Text>
                             </View>
                         </MenuItem>
                         <MenuDivider />
@@ -59,7 +62,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                                     styles={styles.checkbox}
                                     checked={true}
                                 />
-                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Corazón</Text>
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>{language.t("_customCheckbox2")}</Text>
                             </View>
                         </MenuItem>
                         <MenuDivider />
@@ -69,7 +72,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                                     styles={styles.checkbox}
                                     checked={true}
                                 />
-                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Bandera</Text>
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>{language.t("_customCheckbox3")}</Text>
                             </View>
                         </MenuItem>
                         <MenuDivider />
@@ -79,7 +82,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                                     styles={styles.checkbox}
                                     checked={true}
                                 />
-                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Estrella</Text>
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>{language.t("_customCheckbox4")}</Text>
                             </View>
                         </MenuItem>
                         <MenuDivider />
@@ -89,7 +92,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                                     styles={styles.checkbox}
                                     checked={true}
                                 />
-                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Cara</Text>
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>{language.t("_customCheckbox5")}</Text>
                             </View>
                         </MenuItem>
                         <MenuDivider />
@@ -99,7 +102,7 @@ export default function ListHero({ list, openListModal, setOpenListModal, getLis
                                     styles={styles.checkbox}
                                     checked={true}
                                 />
-                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>Bombilla</Text>
+                                <Text style={[ui.text, { color: "#000", fontSize: 14.5 }]}>{language.t("_customCheckbox6")}</Text>
                             </View>
                         </MenuItem>
 
