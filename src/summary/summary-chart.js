@@ -1,4 +1,4 @@
-import { Dimensions, Text, ToastAndroid, View } from "react-native"
+import { Alert, Dimensions, Platform, Text, ToastAndroid, View } from "react-native"
 import { layout, padding, ui } from "../utils/styles"
 import { ContributionGraph } from "react-native-chart-kit";
 import { useContext, useEffect, useState } from "react";
@@ -61,7 +61,7 @@ export default function SummaryChart() {
                         numDays={105}
                         width={Dimensions.get("window").width}
                         height={220}
-                        onDayPress={({ count, date }) => count > 0 && ToastAndroid.showWithGravityAndOffset(`${count} tareas creadas el día ${date}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50)}
+                        onDayPress={({ count, date }) => count > 0 && Platform.OS === "android" ? ToastAndroid.showWithGravityAndOffset(`${count} tareas creadas el día ${date}`, ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50) : Alert.alert(`${count} tareas creadas el día ${date}`)}
                         chartConfig={{
                             backgroundGradientFrom: "#fff",
                             backgroundGradientTo: "#fff",

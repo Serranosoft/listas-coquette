@@ -13,7 +13,8 @@
     },
     "scheme": "coquette-list",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.paulaymanu113.coquettelist"
     },
     "android": {
       "adaptiveIcon": {

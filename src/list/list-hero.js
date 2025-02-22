@@ -133,7 +133,8 @@ const styles = StyleSheet.create({
     menuItemWrapper: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 8
+        gap: 8,
+        paddingLeft: 8
     },
 
     actions: {

@@ -1,6 +1,6 @@
 import Checkbox from "expo-checkbox"
 import { useEffect, useState } from "react"
-import { StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native"
+import { Alert, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native"
 import { colors, gap, layout, ui } from "../utils/styles";
 import { deleteItemFromId, updateItemStatus } from "../utils/storage";
 import * as Clipboard from 'expo-clipboard';
@@ -40,7 +40,12 @@ export default function ListItem({ item, selectedItems, setSelectedItems, getChe
         }
 
         await Clipboard.setStringAsync(item.value);
-        ToastAndroid.showWithGravityAndOffset(`¡${item.value} Copiado!`, ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+        
+        if (Platform.OS === "android") {
+            ToastAndroid.showWithGravityAndOffset(`¡${item.value} Copiado!`, ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50);
+        } else {
+            Alert.alert(`¡${item.value} Copiado!`);
+        }
     }
 
     function onPress() {

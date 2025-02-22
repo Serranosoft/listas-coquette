@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
-import { components, header, ui } from "../utils/styles";
+import { components, header, padding, ui } from "../utils/styles";
 import { Link, router } from "expo-router";
 import { Path, Svg } from "react-native-svg";
 import { useContext, useState } from "react";
@@ -32,8 +32,9 @@ export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDel
                 <MenuItem onPress={() => {
                     setAdTrigger((adTrigger) => adTrigger + 1);
                     router.push("summary");
+                    hideMenu();
                 }}>
-                    <View style={components.row}>
+                    <View style={[components.row, padding.smallHorizontal]}>
                         <Image style={header.img} source={require("../../assets/activity.png")} />
                         <Text>{language.t("_headerDropdownOption2")}</Text>
                     </View>
@@ -42,8 +43,9 @@ export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDel
                 <MenuItem onPress={() => {
                     setAdTrigger((adTrigger) => adTrigger + 1);
                     router.push("settings");
+                    hideMenu();
                 }}>
-                    <View style={components.row}>
+                    <View style={[components.row, padding.smallHorizontal]}>
                         <Image style={header.img} source={require("../../assets/settings.png")} />
                         <Text>{language.t("_headerDropdownOption1")}</Text>
                     </View>

@@ -1,4 +1,4 @@
-import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { colors, ui } from "../utils/styles";
 import { useContext, useRef, useState } from "react";
 import { insertItemToListId } from "../utils/storage";
@@ -27,14 +27,21 @@ export default function ListAddItem({ getChecklist, list }) {
 
     return (
         <View style={styles.addWrapper}>
-            <TextInput
-                ref={input}
-                style={[styles.input, ui.muted]}
-                onChangeText={setValue}
-                value={value}
-                placeholder={language.t("_listAddItemInputPlaceholder")}
-                placeholderTextColor={"#858585"}
-            />
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : undefined}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 85 : 0} // Ajusta según el diseño
+                style={{ flex: 1 }}
+            >
+                <TextInput
+                    ref={input}
+                    style={[styles.input, ui.muted]}
+                    onChangeText={setValue}
+                    value={value}
+                    placeholder={language.t("_listAddItemInputPlaceholder")}
+                    placeholderTextColor={"#858585"}
+                />
+
+            </KeyboardAvoidingView>
             <TouchableOpacity onPress={add}>
                 <Text style={[ui.h2, ui.black, ui.center]}>+</Text>
             </TouchableOpacity>
