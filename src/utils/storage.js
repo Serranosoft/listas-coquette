@@ -27,7 +27,7 @@ async function addCheckboxColumn() {
     try {
         const result = await db.getAllAsync("PRAGMA table_info(list);");
         const columns = result.map(row => row.name);
-    
+
         if (!columns.includes('checkbox')) {
             await db.execAsync("ALTER TABLE List ADD COLUMN checkbox TEXT");
         }
@@ -64,9 +64,31 @@ export async function deleteListFromId(id) {
 }
 
 export async function getListFromId(id) {
-    const x = await db.getFirstAsync('SELECT * FROM list WHERE id = ?', id)
+    const x = await db.getFirstAsync('SELECT * FROM list WHERE id = ?', id);
     return x;
 }
+
+export async function getNextIdFromCurrentId(id) {
+    const item = await db.getFirstAsync('SELECT id FROM list WHERE id > ? ORDER BY id ASC LIMIT 1', id);
+    if (!item || item.id === id) {
+        return await db.getFirstAsync(
+            `SELECT id FROM list ORDER BY id ASC LIMIT 1`
+        );
+    } else {
+        return item;
+    }
+}
+
+export async function getPrevIdFromCurrentId(id) {
+    const item = await db.getFirstAsync('SELECT id FROM list WHERE id < ? ORDER BY id DESC LIMIT 1', id);
+
+    if (!item || item.id === id) {
+        return await db.getFirstAsync(`SELECT id FROM list ORDER BY id DESC LIMIT 1`);
+    } else {
+        return item;
+    }
+}
+
 
 // ITEMS
 

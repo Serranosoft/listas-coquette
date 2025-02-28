@@ -22,7 +22,7 @@ export default function HomeListElement({ list, selectedLists, setSelectedLists 
 
     function navigate() {
         setAdTrigger((adTrigger) => adTrigger + 1);
-        router.navigate({ pathname: "/list", params: { id: list.id } });
+        router.navigate({ pathname: "/list", params: { initialId: list.id } });
     }
 
     function onLongPress() {

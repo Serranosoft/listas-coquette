@@ -11,6 +11,7 @@ import { I18n } from 'i18n-js'
 import { translations } from "../src/utils/localizations";
 import AdsHandler from "../src/components/AdsHandler";
 import Constants from "expo-constants";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,10 +44,6 @@ export default function Layout() {
         }
     }
 
-    async function checkDatabase() {
-        const value = await AsyncStorage.getItem("FIRST_LAUNCH_APP");
-    }
-
     // Idioma
     const [language, setLanguage] = useState(getLocales()[0].languageCode || "es");
     const i18n = new I18n(translations);
@@ -72,15 +69,17 @@ export default function Layout() {
     }
 
     return (
-        <AdsContext.Provider value={{ setAdTrigger: setAdTrigger }}>
-            <LangContext.Provider value={{ setLanguage: setLanguage, language: i18n }}>
-                <AdsHandler ref={adsHandlerRef} showOpenAd={showOpenAd} setShowOpenAd={setShowOpenAd} />
-                <View style={styles.container}>
-                    <Stack />
-                    <StatusBar style="light" />
-                </View>
-            </LangContext.Provider>
-        </AdsContext.Provider>
+        <GestureHandlerRootView style={styles.wrapper}>
+            <AdsContext.Provider value={{ setAdTrigger: setAdTrigger }}>
+                <LangContext.Provider value={{ setLanguage: setLanguage, language: i18n }}>
+                    <AdsHandler ref={adsHandlerRef} showOpenAd={showOpenAd} setShowOpenAd={setShowOpenAd} />
+                    <View style={styles.container}>
+                        <Stack />
+                        <StatusBar style="light" />
+                    </View>
+                </LangContext.Provider>
+            </AdsContext.Provider>
+        </GestureHandlerRootView>
     )
 }
 const styles = StyleSheet.create({

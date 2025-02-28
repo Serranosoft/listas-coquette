@@ -13,7 +13,7 @@
     },
     "scheme": "coquette-list",
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.paulaymanu113.coquettelist"
     },
     "android": {
@@ -21,7 +21,7 @@
         "foregroundImage": "./assets/icon-listas.png",
         "backgroundColor": "#FACCD6"
       },
-      "versionCode": 7,
+      "versionCode": 8,
       "package": "com.paulaymanu113.coquettelist"
     },
     "web": {
