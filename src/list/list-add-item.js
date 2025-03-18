@@ -5,7 +5,7 @@ import { insertItemToListId } from "../utils/storage";
 import { convertDateToString } from "../utils/date";
 import { LangContext } from "../utils/Context";
 
-export default function ListAddItem({ getChecklist, list }) {
+export default function ListAddItem({ textInputRef, getChecklist, list }) {
 
     const { language } = useContext(LangContext);
     const [value, setValue] = useState("");
@@ -26,7 +26,7 @@ export default function ListAddItem({ getChecklist, list }) {
     }
 
     return (
-        <View style={styles.addWrapper}>
+        <View ref={textInputRef} style={styles.addWrapper}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : undefined}
                 keyboardVerticalOffset={Platform.OS === "ios" ? 85 : 0} // Ajusta según el diseño

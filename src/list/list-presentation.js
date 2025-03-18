@@ -1,16 +1,17 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { colors, margin, ui } from "../../src/utils/styles";
 import ListItem from "./list-item";
 import { useContext } from "react";
 import { LangContext } from "../utils/Context";
+import { ScrollView } from "react-native-gesture-handler";
 
-export default function ListPresentation({ items, selectedItems, setSelectedItems, getChecklist, checkbox }) {
+export default function ListPresentation({ scrollRef, items, selectedItems, setSelectedItems, getChecklist, checkbox }) {
     const { language } = useContext(LangContext);
 
     return (
 
         <View style={styles.checkboxList}>
-            <ScrollView style={{ gap: 16, width: "100%", marginVertical: 8 }} contentContainerStyle={{ gap: 8 }}>
+            <ScrollView ref={scrollRef} style={{ gap: 16, width: "100%", marginVertical: 8 }} contentContainerStyle={{ gap: 8 }}>
                 {
                     items.length > 0 ?
                         items.map((item) => {

@@ -2,7 +2,7 @@ import ListPresentation from "./list-presentation";
 import { Dimensions, View } from "react-native";
 import { gap, layout, padding } from "../../src/utils/styles";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getItemsFromListId, getListFromId, getNextIdFromCurrentId, getPrevIdFromCurrentId, getPreviousIdFromCurrentId } from "../../src/utils/storage";
 import HeaderListContainer from "../headers/header-list-container";
 import ListHero from "./list-hero";
@@ -20,8 +20,10 @@ export default function ListContainer() {
     const [items, setItems] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
     const [openListModal, setOpenListModal] = useState(false);
-
     const [id, setId] = useState(initialId);
+
+    const scrollRef = useRef();
+    const textInputRef = useRef();
 
     useEffect(() => {
         if (id) {
@@ -50,14 +52,16 @@ export default function ListContainer() {
             if (e.translationX < -60) {
                 const x = await getNextIdFromCurrentId(id);
                 setId(x.id);
-                position.value = withDelay(50, withTiming(0, { duration: 300, easing: Easing.out(Easing.cubic) }));
             } else if (e.translationX > 60) {
                 const x = await getPrevIdFromCurrentId(id);
                 setId(x.id);
-                position.value = withDelay(50, withTiming(0, { duration: 300, easing: Easing.out(Easing.cubic) }));
             }
-
+            position.value = withDelay(50, withTiming(0, { duration: 300, easing: Easing.out(Easing.cubic) }));
         })
+        .shouldCancelWhenOutside(true)
+        .requireExternalGestureToFail(scrollRef || textInputRef);
+
+
 
     const animatedStyle = useAnimatedStyle(() => ({
         transform: [{ translateX: position.value }],
@@ -73,8 +77,8 @@ export default function ListContainer() {
                         list &&
                         <View style={[layout.flex, layout.alignCenter, padding.bigTop, gap.medium]}>
                             <ListHero {...{ list, openListModal, setOpenListModal, getList }} />
-                            <ListAddItem {...{ getChecklist, list }} />
-                            <ListPresentation {...{ items, selectedItems, setSelectedItems, getChecklist, checkbox: list.checkbox }} />
+                            <ListAddItem {...{ textInputRef, getChecklist, list }} />
+                            <ListPresentation {...{ scrollRef, items, selectedItems, setSelectedItems, getChecklist, checkbox: list.checkbox }} />
                         </View>
 
                     }
