@@ -21,7 +21,7 @@
         "foregroundImage": "./assets/icon-listas.png",
         "backgroundColor": "#FACCD6"
       },
-      "versionCode": 9,
+      "versionCode": 10,
       "package": "com.paulaymanu113.coquettelist"
     },
     "web": {
