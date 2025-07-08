@@ -2,7 +2,7 @@ import ListPresentation from "./list-presentation";
 import { Dimensions, View } from "react-native";
 import { gap, layout, padding } from "../../src/utils/styles";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { getItemsFromListId, getListFromId, getNextIdFromCurrentId, getPrevIdFromCurrentId, getPreviousIdFromCurrentId } from "../../src/utils/storage";
 import HeaderListContainer from "../headers/header-list-container";
 import ListHero from "./list-hero";
@@ -11,10 +11,13 @@ import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 import { bannerId } from "../utils/constants";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { Easing, useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
+import { AdsContext } from "../utils/Context";
 
 export default function ListContainer() {
 
     const { initialId } = useLocalSearchParams();
+    const { adsLoaded } = useContext(AdsContext);
+    
 
     const [list, setList] = useState(null);
     const [items, setItems] = useState([]);
@@ -72,7 +75,7 @@ export default function ListContainer() {
             <Stack.Screen options={{ header: () => <HeaderListContainer {...{ list, selectedItems, setSelectedItems, getChecklist }} /> }} />
             <GestureDetector gesture={tap}>
                 <Animated.View style={[layout.flex, layout.white, animatedStyle]}>
-                    <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />
+                    {adsLoaded && <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />}
                     {
                         list &&
                         <View style={[layout.flex, layout.alignCenter, padding.bigTop, gap.medium]}>

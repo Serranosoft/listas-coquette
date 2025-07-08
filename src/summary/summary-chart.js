@@ -1,6 +1,6 @@
 import { Alert, Dimensions, Platform, Text, ToastAndroid, View } from "react-native"
 import { layout, padding, ui } from "../utils/styles"
-import { ContributionGraph } from "react-native-chart-kit";
+// import { ContributionGraph } from "react-native-chart-kit";
 import { useContext, useEffect, useState } from "react";
 import { getAllList, getItemsFromListId } from "../utils/storage";
 import { convertStringDateToDateObject, parseDateToString } from "../utils/date";
@@ -55,7 +55,7 @@ export default function SummaryChart() {
                     <Text style={[ui.h4, ui.black, padding.mediumHorizontal, ui.center]}>{language.t("_summaryChartTitle")}</Text>
                     <Text style={[ui.muted, ui.center, padding.mediumHorizontal]}>{language.t("_summaryChartSubtitle")}</Text>
 
-                    <ContributionGraph
+                    {/* <ContributionGraph
                         values={changes}
                         endDate={`${new Date().getFullYear()}-0${new Date().getMonth() + 4}-01`}
                         numDays={105}
@@ -68,7 +68,7 @@ export default function SummaryChart() {
                             color: (opacity = 1) => `rgba(204, 82, 122, ${opacity})`,
                             labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                         }}
-                    />
+                    /> */}
                 </>
 
             }

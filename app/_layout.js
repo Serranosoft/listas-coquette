@@ -57,9 +57,11 @@ export default function Layout() {
     const adsHandlerRef = createRef();
 
     useEffect(() => {
-        if (adTrigger > 4) {
-            adsHandlerRef.current.showIntersitialAd();
-            setAdTrigger(0);
+        if (adsHandlerRef.current.adsLoaded) {
+            if (adTrigger > 4) {
+                adsHandlerRef.current.showIntersitialAd();
+                setAdTrigger(0);
+            }
         }
     }, [adTrigger])
 
@@ -70,7 +72,7 @@ export default function Layout() {
 
     return (
         <GestureHandlerRootView style={styles.wrapper}>
-            <AdsContext.Provider value={{ setAdTrigger: setAdTrigger }}>
+            <AdsContext.Provider value={{ setAdTrigger: setAdTrigger, adsLoaded: adsHandlerRef.current.adsLoaded }}>
                 <LangContext.Provider value={{ setLanguage: setLanguage, language: i18n }}>
                     <AdsHandler ref={adsHandlerRef} showOpenAd={showOpenAd} setShowOpenAd={setShowOpenAd} />
                     <View style={styles.container}>

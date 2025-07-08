@@ -1,49 +1,61 @@
 {
-  "expo": {
-    "name": "Listas",
-    "slug": "coquette-list",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon-listas.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash-listas.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#FACCD6"
-    },
-    "scheme": "coquette-list",
-    "ios": {
-      "supportsTablet": false,
-      "bundleIdentifier": "com.paulaymanu113.coquettelist"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon-listas.png",
-        "backgroundColor": "#FACCD6"
-      },
-      "versionCode": 10,
-      "package": "com.paulaymanu113.coquettelist"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      "expo-font",
-      "expo-router",
-      [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-3738413299329691~1309052823",
-          "iosAppId": "ca-app-pub-3738413299329691~1309052823"
+    "expo": {
+        "name": "Listas",
+        "slug": "coquette-list",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon-listas.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./assets/splash-listas.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#FACCD6"
+        },
+        "scheme": "coquette-list",
+        "ios": {
+            "supportsTablet": false,
+            "bundleIdentifier": "com.paulaymanu113.coquettelist"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/icon-listas.png",
+                "backgroundColor": "#FACCD6"
+            },
+            "versionCode": 10,
+            "package": "com.paulaymanu113.coquettelist"
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "plugins": [
+            "expo-font",
+            "expo-router",
+            [
+                "react-native-google-mobile-ads",
+                {
+                    "androidAppId": "ca-app-pub-3738413299329691~1309052823",
+                    "iosAppId": "ca-app-pub-3738413299329691~1309052823"
+                }
+            ],
+            "expo-localization",
+            "expo-tracking-transparency",
+            [
+                "expo-build-properties",
+                {
+                    "android": {
+                        "enableProguardInReleaseBuilds": true,
+                        "extraProguardRules": "-keep class com.google.android.gms.** { *; }"
+                    },
+                    "ios": {
+                        "useFrameworks": "static"
+                    }
+                }
+            ]
+        ],
+        "extra": {
+            "eas": {
+                "projectId": "b6e568e1-c05e-425f-82aa-8ef92b9c27f3"
+            }
         }
-      ],
-      "expo-localization",
-      "expo-tracking-transparency"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "b6e568e1-c05e-425f-82aa-8ef92b9c27f3"
-      }
     }
-  }
 }

@@ -3,13 +3,17 @@ import { gap, layout } from "../utils/styles";
 import HomeListElement from "./home-list-element";
 import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 import { bannerId } from "../utils/constants";
+import { useContext } from "react";
+import { AdsContext } from "../utils/Context";
 
 export default function Home({ lists, selectedLists, setSelectedLists }) {
+
+    const { adsLoaded } = useContext(AdsContext);
 
     return (
         <>
             <View style={[layout.flex]}>
-                <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />
+                {adsLoaded && <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} /> }
                 <View style={[layout.flex]}>
                     {
                         <FlatList
@@ -21,7 +25,7 @@ export default function Home({ lists, selectedLists, setSelectedLists }) {
                         />
                     }
                 </View>
-                <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />
+                {adsLoaded && <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} /> }
             </View>
         </>
 

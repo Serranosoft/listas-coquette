@@ -4,11 +4,13 @@ import { BannerAd, BannerAdSize } from "react-native-google-mobile-ads";
 import { bannerId } from "../utils/constants";
 import LangList from "../components/lang-list";
 import { useContext } from "react";
-import { LangContext } from "../utils/Context";
+import { AdsContext, LangContext } from "../utils/Context";
 
 export default function Settings() {
 
     const { language } = useContext(LangContext);
+    const { adsLoaded } = useContext(AdsContext);
+    
 
     return (
         <View style={[layout.flex, layout.backgroundLight, padding.bigHorizontal]}>
@@ -19,7 +21,7 @@ export default function Settings() {
                     <LangList />
                 </View>
             </ScrollView>
-            <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} />
+            { adsLoaded && <BannerAd unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={{}} /> }
 
         </View>
     )

@@ -1,8 +1,10 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
-import { useInterstitialAd } from "react-native-google-mobile-ads";
+import { /* AdsConsent, AdsConsentStatus, */ useInterstitialAd } from "react-native-google-mobile-ads";
 import { intersitialId, loadId } from "../utils/constants";
 import { AdEventType, AppOpenAd } from "react-native-google-mobile-ads";
 import { AppState } from "react-native";
+// import { requestTrackingPermissionsAsync } from "expo-tracking-transparency";
+// import mobileAds from 'react-native-google-mobile-ads/src';
 
 const AdsHandler = forwardRef((props, ref) => {
 
@@ -11,6 +13,46 @@ const AdsHandler = forwardRef((props, ref) => {
         isClosed: isClosedIntersitial,
         load: loadIntersitial,
         show: showIntersitial } = useInterstitialAd(intersitialId);
+
+    const [adsLoaded, setAdsLoaded] = useState(false);
+
+    /* CONSENT */
+    useEffect(() => {
+        /* const prepare = async () => {
+            console.log('Starting ad initialization...');
+            // TODO: if the ATT doesn't show up, add a small delay
+            const trackingResult = await requestTrackingPermissionsAsync();
+            console.log('Tracking permission result:', trackingResult);
+            try {
+                const consentInfo = await AdsConsent.requestInfoUpdate();
+                console.log('Consent info:', consentInfo);
+                if (consentInfo.isConsentFormAvailable && consentInfo.status === AdsConsentStatus.REQUIRED) {
+                    console.log('Showing consent form...');
+                    try {
+                        await AdsConsent.showForm();
+                    } catch (formError) {
+                        console.log('Error showing consent form:', formError);
+                        // Continue even if form fails to show
+                    }
+                }
+                console.log('Initializing mobile ads...');
+                await mobileAds().initialize();
+                console.log('Mobile ads initialized successfully');
+                setAdsLoaded(true);
+            } catch (e) {
+                console.log('Error during ad initialization:', e);
+                // Still try to initialize ads even if consent fails
+                try {
+                    await mobileAds().initialize();
+                    console.log('Mobile ads initialized successfully despite consent error');
+                    setAdsLoaded(true);
+                } catch (initError) {
+                    console.log('Failed to initialize ads:', initError);
+                }
+            }
+        } */
+        // prepare();
+    }, []);
 
     useEffect(() => {
         loadIntersitial();
@@ -30,6 +72,9 @@ const AdsHandler = forwardRef((props, ref) => {
         isLoadedIntersitial() {
             return isLoadedIntersitial;
         },
+        isAdsLoaded() {
+            return adsLoaded;
+        }
     }))
 
     useEffect(() => {
@@ -42,8 +87,8 @@ const AdsHandler = forwardRef((props, ref) => {
         }
 
     }, [isClosedIntersitial, props.closedIntersitialCallback])
-    
-    
+
+
     function showIntersitialAd() {
         if (isLoadedIntersitial) {
             showIntersitial();
@@ -59,7 +104,7 @@ const AdsHandler = forwardRef((props, ref) => {
     const [appStateChanged, setAppStateChanged] = useState(AppState.currentState);
 
     useEffect(() => {
-        appStateChanged == "active" && handleOpenAd();
+        adsLoaded && appStateChanged == "active" && handleOpenAd();
     }, [appStateChanged])
 
     function handleOpenAd() {
