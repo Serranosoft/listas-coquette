@@ -37,7 +37,8 @@
           "iosAppId": "ca-app-pub-3738413299329691~1309052823"
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      "expo-tracking-transparency"
     ],
     "extra": {
       "eas": {
