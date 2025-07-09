@@ -21,36 +21,33 @@
                 "foregroundImage": "./assets/icon-listas.png",
                 "backgroundColor": "#FACCD6"
             },
-            "versionCode": 10,
+            "versionCode": 11,
             "package": "com.paulaymanu113.coquettelist"
         },
         "web": {
             "favicon": "./assets/favicon.png"
         },
         "plugins": [
-            "expo-font",
-            "expo-router",
             [
                 "react-native-google-mobile-ads",
                 {
                     "androidAppId": "ca-app-pub-3738413299329691~1309052823",
-                    "iosAppId": "ca-app-pub-3738413299329691~1309052823"
+                    "iosAppId": "ca-app-pub-3738413299329691~1309052823",
+                    "delayAppMeasurementInit": true,
+                    "userTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you."
                 }
             ],
-            "expo-localization",
-            "expo-tracking-transparency",
             [
                 "expo-build-properties",
                 {
                     "android": {
-                        "enableProguardInReleaseBuilds": true,
-                        "extraProguardRules": "-keep class com.google.android.gms.** { *; }"
-                    },
-                    "ios": {
-                        "useFrameworks": "static"
+                        "extraProguardRules": "-keep class com.google.android.gms.internal.consent_sdk.** { *; }"
                     }
                 }
-            ]
+            ],
+            "expo-font",
+            "expo-router",
+            "expo-localization"
         ],
         "extra": {
             "eas": {

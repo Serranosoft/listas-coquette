@@ -10,7 +10,6 @@ import { getLocales } from "expo-localization";
 import { I18n } from 'i18n-js'
 import { translations } from "../src/utils/localizations";
 import AdsHandler from "../src/components/AdsHandler";
-import Constants from "expo-constants";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
@@ -52,12 +51,13 @@ export default function Layout() {
     i18n.defaultLocale = "es";
 
     // Gestión de anuncios
+    const [adsLoaded, setAdsLoaded] = useState(false);
     const [adTrigger, setAdTrigger] = useState(0);
     const [showOpenAd, setShowOpenAd] = useState(true);
     const adsHandlerRef = createRef();
 
     useEffect(() => {
-        if (adsHandlerRef.current.adsLoaded) {
+        if (adsLoaded) {
             if (adTrigger > 4) {
                 adsHandlerRef.current.showIntersitialAd();
                 setAdTrigger(0);
@@ -72,9 +72,9 @@ export default function Layout() {
 
     return (
         <GestureHandlerRootView style={styles.wrapper}>
-            <AdsContext.Provider value={{ setAdTrigger: setAdTrigger, adsLoaded: adsHandlerRef.current.adsLoaded }}>
+            <AdsContext.Provider value={{ setAdTrigger: setAdTrigger, adsLoaded: adsLoaded }}>
                 <LangContext.Provider value={{ setLanguage: setLanguage, language: i18n }}>
-                    <AdsHandler ref={adsHandlerRef} showOpenAd={showOpenAd} setShowOpenAd={setShowOpenAd} />
+                    <AdsHandler ref={adsHandlerRef} adsLoaded={adsLoaded} setAdsLoaded={setAdsLoaded} showOpenAd={showOpenAd} setShowOpenAd={setShowOpenAd} />
                     <View style={styles.container}>
                         <Stack />
                         <StatusBar style="light" />
@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
         flex: 1,
         position: "relative",
         justifyContent: "center",
-        paddingTop: Constants.statusBarHeight,
         backgroundColor: colors.light
     },
     wrapper: {

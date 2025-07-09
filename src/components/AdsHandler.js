@@ -1,10 +1,8 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
-import { /* AdsConsent, AdsConsentStatus, */ useInterstitialAd } from "react-native-google-mobile-ads";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
+import MobileAds, { AdsConsent, useInterstitialAd } from "react-native-google-mobile-ads";
 import { intersitialId, loadId } from "../utils/constants";
 import { AdEventType, AppOpenAd } from "react-native-google-mobile-ads";
 import { AppState } from "react-native";
-// import { requestTrackingPermissionsAsync } from "expo-tracking-transparency";
-// import mobileAds from 'react-native-google-mobile-ads/src';
 
 const AdsHandler = forwardRef((props, ref) => {
 
@@ -14,49 +12,33 @@ const AdsHandler = forwardRef((props, ref) => {
         load: loadIntersitial,
         show: showIntersitial } = useInterstitialAd(intersitialId);
 
-    const [adsLoaded, setAdsLoaded] = useState(false);
 
     /* CONSENT */
+    const isMobileAdsStartCalledRef = useRef(false);
     useEffect(() => {
-        /* const prepare = async () => {
-            console.log('Starting ad initialization...');
-            // TODO: if the ATT doesn't show up, add a small delay
-            const trackingResult = await requestTrackingPermissionsAsync();
-            console.log('Tracking permission result:', trackingResult);
-            try {
-                const consentInfo = await AdsConsent.requestInfoUpdate();
-                console.log('Consent info:', consentInfo);
-                if (consentInfo.isConsentFormAvailable && consentInfo.status === AdsConsentStatus.REQUIRED) {
-                    console.log('Showing consent form...');
-                    try {
-                        await AdsConsent.showForm();
-                    } catch (formError) {
-                        console.log('Error showing consent form:', formError);
-                        // Continue even if form fails to show
-                    }
-                }
-                console.log('Initializing mobile ads...');
-                await mobileAds().initialize();
-                console.log('Mobile ads initialized successfully');
-                setAdsLoaded(true);
-            } catch (e) {
-                console.log('Error during ad initialization:', e);
-                // Still try to initialize ads even if consent fails
-                try {
-                    await mobileAds().initialize();
-                    console.log('Mobile ads initialized successfully despite consent error');
-                    setAdsLoaded(true);
-                } catch (initError) {
-                    console.log('Failed to initialize ads:', initError);
-                }
-            }
-        } */
-        // prepare();
+        const prepare = async () => {
+            const consentInfo = await AdsConsent.requestInfoUpdate();
+            AdsConsent.loadAndShowConsentFormIfRequired()
+                .then(startGoogleMobileAdsSDK)
+                .catch((error) => console.error('Consent gathering failed:', error));
+            startGoogleMobileAdsSDK();
+        }
+
+        prepare();
     }, []);
 
-    useEffect(() => {
-        loadIntersitial();
-    }, [loadIntersitial])
+    async function startGoogleMobileAdsSDK() {
+        const { canRequestAds } = await AdsConsent.getConsentInfo();
+        if (!canRequestAds || isMobileAdsStartCalledRef.current) {
+            return;
+        }
+
+        isMobileAdsStartCalledRef.current = true;
+        await MobileAds().initialize();
+        props.setAdsLoaded(true);
+        loadIntersitial(); // Cargar intersitial ads
+        loadOpenAppAd(); // Cargar open ads
+    }
 
     useImperativeHandle(ref, () => ({
         loadIntersitialAd() {
@@ -72,9 +54,6 @@ const AdsHandler = forwardRef((props, ref) => {
         isLoadedIntersitial() {
             return isLoadedIntersitial;
         },
-        isAdsLoaded() {
-            return adsLoaded;
-        }
     }))
 
     useEffect(() => {
@@ -104,7 +83,7 @@ const AdsHandler = forwardRef((props, ref) => {
     const [appStateChanged, setAppStateChanged] = useState(AppState.currentState);
 
     useEffect(() => {
-        adsLoaded && appStateChanged == "active" && handleOpenAd();
+        props.adsLoaded && appStateChanged == "active" && handleOpenAd();
     }, [appStateChanged])
 
     function handleOpenAd() {
@@ -116,7 +95,7 @@ const AdsHandler = forwardRef((props, ref) => {
         }
     }
 
-    useEffect(() => {
+    function loadOpenAppAd() {
         const appOpenAd = AppOpenAd.createForAdRequest(loadId);
         appOpenAd.load();
 
@@ -133,9 +112,7 @@ const AdsHandler = forwardRef((props, ref) => {
         AppState.addEventListener("change", nextAppState => {
             setAppStateChanged(nextAppState);
         })
-    }, [])
-
-
+    }
 
     return <></>
 })
