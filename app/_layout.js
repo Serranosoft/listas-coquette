@@ -11,6 +11,7 @@ import { I18n } from 'i18n-js'
 import { translations } from "../src/utils/localizations";
 import AdsHandler from "../src/components/AdsHandler";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import * as StoreReview from 'expo-store-review';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -57,6 +58,12 @@ export default function Layout() {
     const adsHandlerRef = createRef();
 
     useEffect(() => {
+
+        if (adTrigger > 3) {
+            askForReview();
+            setShowOpenAd(false);
+        }
+        
         if (adsLoaded) {
             if (adTrigger > 4) {
                 adsHandlerRef.current.showIntersitialAd();
@@ -64,6 +71,12 @@ export default function Layout() {
             }
         }
     }, [adTrigger])
+
+    async function askForReview() {
+        if (await StoreReview.hasAction()) {
+            StoreReview.requestReview()
+        }
+    }
 
     // Esperar hasta que las fuentes se carguen
     if (!fontsLoaded) {
