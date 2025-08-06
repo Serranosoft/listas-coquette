@@ -82,7 +82,7 @@ export default function ListItem({ item, selectedItems, setSelectedItems, getChe
             <View style={[styles.wrapper, selected && { backgroundColor: colors.light, borderBottomColor: colors.gray }]} >
                 <TouchableOpacity style={[layout.row, layout.alignCenter, gap.big]} onPress={onPress} onLongPress={onLongPress}>
                     <TouchableOpacity onPress={removeItem}>
-                        <Text style={[ui.muted]}>x</Text>
+                        <Text style={[ui.muted, { fontSize: 19.5, color: "#000" }]}>x</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={openEditItemModal}>
                         <Text style={[ui.h4, ui.black, checked && { textDecorationLine: 'line-through', textDecorationStyle: 'solid', color: colors.muted }]}>{item.value}</Text>

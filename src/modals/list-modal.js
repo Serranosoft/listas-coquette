@@ -81,18 +81,19 @@ export default function ListModal({ setOpenListModal, openListModal, list, isEdi
                         <View style={styles.content}>
                             <ScrollView style={{ gap: 16, width: "100%" }} contentContainerStyle={{ alignItems: "center", gap: 16 }}>
 
-                                <Animated.View entering={ZoomIn}>
+                                <Animated.View>
                                     <SvgItem {...{ width: 110, height: 110, color }} />
                                 </Animated.View>
 
-                                <Animated.View entering={ZoomIn.delay(125)}>
+                                <Animated.View>
                                     <Text style={[ui.h3, ui.black, ui.center]}>{language.t("_listModalTitle")}</Text>
                                 </Animated.View>
 
 
-                                <Animated.View entering={ZoomIn.delay(225)} style={[layout.w100]}>
+                                <Animated.View style={[layout.w100]}>
                                     <TextInput
                                         style={styles.input}
+                                        placeholderTextColor={"#4d4d4dff"}
                                         onChangeText={setTitle}
                                         value={title}
                                         placeholder={language.t("_listModalNamePlaceholder")}
@@ -100,7 +101,7 @@ export default function ListModal({ setOpenListModal, openListModal, list, isEdi
                                 </Animated.View>
 
 
-                                <Animated.View entering={ZoomIn.delay(325)} style={[layout.w100]}>
+                                <Animated.View style={[layout.w100]}>
                                     <ColorPicker
                                         style={[layout.w100, gap.big]}
                                         value={color}
@@ -116,13 +117,13 @@ export default function ListModal({ setOpenListModal, openListModal, list, isEdi
                                     </ColorPicker>
                                 </Animated.View>
 
-                                <Animated.View style={[components.button, layout.w100, { backgroundColor: color }]} entering={ZoomIn.delay(425)}>
+                                <View style={[components.button, layout.w100, { backgroundColor: color }]}> 
                                     <Animated.View style={animatedStyle}>
                                         <TouchableOpacity onPress={save}>
                                             <Text style={[ui.h4, ui.center, { color: isReadable ? "black" : "white" }]}>{isEdit ? language.t("_listModalEditButton") : language.t("_listModalAddButton")}</Text>
                                         </TouchableOpacity>
                                     </Animated.View>
-                                </Animated.View>
+                                </View>
                             </ScrollView>
 
 
@@ -145,6 +146,7 @@ const styles = StyleSheet.create({
     },
     wrapper: {
         width: "90%",
+        maxHeight: 650,
         paddingHorizontal: 4,
         paddingVertical: 4,
         gap: 8,
@@ -184,7 +186,9 @@ const styles = StyleSheet.create({
         borderColor: colors.light,
         borderRadius: 8,
         paddingHorizontal: 12,
-        fontSize: 17
+        fontSize: 17,
+        fontFamily: "madimi",
+        color: "#000"
     },
     panelStyle: {
         width: "100%",

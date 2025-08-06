@@ -42,22 +42,22 @@ export default function ItemModal({ openItemModal, setOpenItemModal, item, onSav
                             <Text style={[ui.h4, ui.black]}>&#10006;</Text>
                         </TouchableOpacity>
                         <View style={styles.content}>
-                            <Animated.View entering={ZoomIn.delay(50)}>
+                            <View>
                                 <Text style={[ui.h3, ui.black, [ui.center]]}>{language.t("_listEditItemTitle")}</Text>
-                            </Animated.View>
-                            <Animated.View entering={ZoomIn.delay(125)} style={[layout.w100]}>
+                            </View>
+                            <View style={[layout.w100]}>
                                 <TextInput
                                     style={styles.input}
                                     onChangeText={setValue}
                                     value={value}
                                 />
-                            </Animated.View>
+                            </View>
 
-                            <Animated.View style={[components.button, layout.w100]} entering={ZoomIn.delay(175)}>
+                            <View style={[components.button, layout.w100]}>
                                 <TouchableOpacity onPress={save}>
                                     <Text style={[ui.h4, ui.center, ui.black]}>{language.t("_listEditItemAcceptButton")}</Text>
                                 </TouchableOpacity>
-                            </Animated.View>
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -117,6 +117,8 @@ const styles = StyleSheet.create({
         borderColor: colors.light,
         borderRadius: 8,
         paddingHorizontal: 12,
-        fontSize: 17
+        fontSize: 17,
+        fontFamily: "madimi",
+        color: "#000"
     },
 })

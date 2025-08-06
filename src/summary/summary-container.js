@@ -53,7 +53,7 @@ export default function SummaryContainer() {
             <Stack.Screen options={{ header: () => <HeaderBackContainer title={language.t("_summaryTitle")} /> }} />
             <View style={[layout.flex, gap.big, layout.white, padding.bigVertical]}>
                 <SummaryHero {...{ completed, pending }} />
-                {/* <SummaryChart /> */}
+                <SummaryChart />
             </View>
         </>
     )

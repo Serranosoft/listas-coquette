@@ -36,7 +36,7 @@ export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDel
                 }}>
                     <View style={[components.row, padding.smallHorizontal]}>
                         <Image style={header.img} source={require("../../assets/activity.png")} />
-                        <Text>{language.t("_headerDropdownOption2")}</Text>
+                        <Text style={[ui.muted, ui.black]}>{language.t("_headerDropdownOption2")}</Text>
                     </View>
                 </MenuItem>
                 <MenuDivider />
@@ -47,7 +47,7 @@ export default function HeaderHome({ setOpenListModal, selectedLists, setOpenDel
                 }}>
                     <View style={[components.row, padding.smallHorizontal]}>
                         <Image style={header.img} source={require("../../assets/settings.png")} />
-                        <Text>{language.t("_headerDropdownOption1")}</Text>
+                        <Text style={[ui.muted, ui.black]}>{language.t("_headerDropdownOption1")}</Text>
                     </View>
                 </MenuItem>
             </Menu>
