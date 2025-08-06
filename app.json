@@ -6,6 +6,7 @@
         "orientation": "portrait",
         "icon": "./assets/icon-listas.png",
         "userInterfaceStyle": "light",
+        "newArchEnabled": false,
         "splash": {
             "image": "./assets/splash-listas.png",
             "resizeMode": "contain",
